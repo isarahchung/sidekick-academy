@@ -61,6 +61,18 @@ Hand off here. See `story-notes.md` demo section or run from Sidekick directly.
 
 ---
 
+## Metrics (W22–W25, May 25–Jun 21)
+
+**Headline numbers:** 590 sessions · 52 unique users · 17 Tower users · 55% overall success (LLM-reviewed)
+
+**Tower growth:** 5 → 14 → 24 → 25 sessions/week. Now the largest cohort. 15 proposals submitted in 4 weeks.
+
+**Honest picture:** Tower success rate is 49%, with 88% of sessions hitting environmental friction. That friction is mostly Distillery CLI/API failures and Weave 502s — infra reliability, not model quality. The hard workflows (rca, fix-issue, reproduce-issue) drive the most mistakes because they're also the most-used. That's where the reliability investment goes next.
+
+**Retention:** Team 86%, Interns 69%, Tower W24 joiners 50%. Newer Tower cohorts stick less — the onboarding nudge work matters.
+
+**If they ask how you measure success:** LLM reviewer (Claude Sonnet) reads transcripts and scores whether the user accomplished their goal. Directional, not ground truth.
+
 ## Engineer Q&A
 
 - **Built on?** — agent-chat from Toolkit. FastAPI + Claude via Anthropic SDK. agent-runner handles session lifecycle and SSE streaming. fe-distillery scans Context Mesh file stores (agents folder) to surface available agents. Sessions are sandboxed.
