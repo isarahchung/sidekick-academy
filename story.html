@@ -687,97 +687,67 @@ pre.code code { color: inherit; font-family: inherit; }
   <!-- 6. Architecture -->
   <section class="slide">
     <div class="slide-frame dark">
-      <div class="eyebrow on-dark">Under the hood</div>
-      <h1 class="headline" style="font-size:64px; margin-bottom:48px; color:#fff;">How it all connects.</h1>
+      <div class="eyebrow on-dark">How it works</div>
 
-      <!-- Diagram: 1520 x 560 canvas, centered -->
-      <div style="position:relative; width:1520px; height:520px; margin:0 auto;">
+      <!-- Sidekick outer container -->
+      <div style="border:2px solid rgba(93,78,231,0.8);border-radius:18px;padding:32px 48px;margin-bottom:52px;background:rgba(93,78,231,0.1);position:relative;">
+        <div style="position:absolute;top:-16px;left:40px;background:#170B2F;padding:0 16px;font-size:18px;font-weight:700;color:rgba(93,78,231,1);letter-spacing:0.08em;text-transform:uppercase;">Sidekick</div>
+        <div style="display:flex;align-items:center;justify-content:center;gap:48px;">
+          <div style="text-align:center;">
+            <div style="font-size:22px;font-weight:600;color:#fff;">agent-chat</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.45);font-family:'JetBrains Mono',monospace;margin-top:4px;">React · browser UI</div>
+          </div>
+          <div style="color:rgba(93,78,231,0.6);font-size:28px;">→</div>
+          <div style="text-align:center;">
+            <div style="font-size:22px;font-weight:600;color:#fff;">agent-runner</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.45);font-family:'JetBrains Mono',monospace;margin-top:4px;">FastAPI · session orchestrator</div>
+          </div>
+          <div style="color:rgba(93,78,231,0.6);font-size:28px;">→</div>
+          <div style="text-align:center;">
+            <div style="font-size:22px;font-weight:600;color:#fff;">Claude Session</div>
+            <div style="font-size:13px;color:rgba(255,255,255,0.45);font-family:'JetBrains Mono',monospace;margin-top:4px;">Anthropic API · sandboxed</div>
+          </div>
+        </div>
+      </div>
 
-        <svg style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:visible;pointer-events:none;">
-          <defs>
-            <marker id="da"  markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="rgba(255,255,255,0.35)"/></marker>
-            <marker id="dav" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="rgba(93,78,231,0.9)"/></marker>
-            <marker id="dao" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="rgba(255,165,0,0.7)"/></marker>
-          </defs>
+      <!-- Three columns -->
+      <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;">
 
-          <!-- Sidekick → agent-runner -->
-          <line x1="248" y1="220" x2="428" y2="220" stroke="rgba(255,255,255,0.3)" stroke-width="2" marker-end="url(#da)"/>
-
-          <!-- agent-runner → Context Mesh (up) -->
-          <line x1="570" y1="178" x2="570" y2="80" stroke="rgba(93,78,231,0.7)" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#dav)"/>
-          <!-- Context Mesh → agent-runner (down, offset) -->
-          <line x1="590" y1="80" x2="590" y2="178" stroke="rgba(93,78,231,0.5)" stroke-width="2" stroke-dasharray="6,4" marker-end="url(#dav)"/>
-
-          <!-- agent-runner → Claude -->
-          <line x1="712" y1="220" x2="880" y2="220" stroke="rgba(255,255,255,0.3)" stroke-width="2" marker-end="url(#da)"/>
-
-          <!-- Claude → mitmproxy -->
-          <line x1="1000" y1="268" x2="1000" y2="358" stroke="rgba(255,165,0,0.5)" stroke-width="2" marker-end="url(#dao)"/>
-
-          <!-- mitmproxy → Distillery -->
-          <line x1="940" y1="430" x2="770" y2="430" stroke="rgba(93,78,231,0.7)" stroke-width="2" marker-end="url(#dav)"/>
-          <!-- mitmproxy → Weave -->
-          <line x1="1000" y1="458" x2="1000" y2="500" stroke="rgba(255,255,255,0.25)" stroke-width="2" marker-end="url(#da)"/>
-          <!-- mitmproxy → Jira -->
-          <line x1="1060" y1="430" x2="1230" y2="430" stroke="rgba(255,255,255,0.25)" stroke-width="2" marker-end="url(#da)"/>
-          <!-- mitmproxy → Databricks -->
-          <line x1="1060" y1="445" x2="1380" y2="490" stroke="rgba(255,255,255,0.2)" stroke-width="2" marker-end="url(#da)"/>
-        </svg>
-
-        <!-- Sidekick -->
-        <div style="position:absolute;left:20px;top:178px;width:228px;background:rgba(93,78,231,0.2);border:1px solid rgba(93,78,231,0.6);border-radius:12px;padding:20px 22px;">
-          <div style="font-size:16px;font-weight:700;color:#fff;">Sidekick</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;font-family:'JetBrains Mono',monospace;">agent-chat · React<br/>HTTP + SSE</div>
+        <!-- Skills -->
+        <div style="border:1px dashed rgba(93,78,231,0.5);border-radius:14px;padding:32px 36px;background:rgba(93,78,231,0.08);position:relative;">
+          <div style="position:absolute;top:-14px;left:28px;background:#170B2F;padding:0 12px;font-size:12px;font-weight:700;color:rgba(93,78,231,0.9);letter-spacing:0.1em;text-transform:uppercase;">Skills</div>
+          <div style="font-size:26px;font-weight:700;color:#fff;margin-bottom:10px;">Context Mesh</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;line-height:1.7;">
+            agents/ folder<br/>
+            git clone → session<br/>
+            rca · fix-issue<br/>
+            routine-explorer<br/>
+            quick-edit · evals…
+          </div>
         </div>
 
-        <!-- agent-runner -->
-        <div style="position:absolute;left:428px;top:160px;width:284px;background:rgba(93,78,231,0.25);border:2px solid rgba(93,78,231,0.8);border-radius:12px;padding:22px 24px;">
-          <div style="font-size:17px;font-weight:700;color:#fff;">agent-runner</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.55);margin-top:6px;font-family:'JetBrains Mono',monospace;">session orchestrator<br/>pulls skills · manages PID<br/>registers credentials</div>
+        <!-- System definitions -->
+        <div style="border:1px solid rgba(93,78,231,0.7);border-radius:14px;padding:32px 36px;background:rgba(93,78,231,0.15);position:relative;">
+          <div style="position:absolute;top:-14px;left:28px;background:#170B2F;padding:0 12px;font-size:12px;font-weight:700;color:rgba(93,78,231,1);letter-spacing:0.1em;text-transform:uppercase;">System definitions</div>
+          <div style="font-size:26px;font-weight:700;color:#fff;margin-bottom:10px;">Distillery</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;line-height:1.7;">
+            Fern SDKs · read + write<br/>
+            routines · branches<br/>
+            proposals · evals<br/>
+            version history
+          </div>
         </div>
 
-        <!-- Context Mesh -->
-        <div style="position:absolute;left:428px;top:0px;width:284px;background:rgba(93,78,231,0.1);border:1px dashed rgba(93,78,231,0.5);border-radius:12px;padding:18px 22px;">
-          <div style="font-size:15px;font-weight:700;color:rgba(93,78,231,1);">Context Mesh</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;font-family:'JetBrains Mono',monospace;">stores agent repo (git)<br/>git clone → session/agent_image/<br/>skills land as local files</div>
-        </div>
-
-        <!-- git clone label -->
-        <div style="position:absolute;left:600px;top:95px;font-size:10px;color:rgba(93,78,231,0.8);font-family:'JetBrains Mono',monospace;">git clone</div>
-        <div style="position:absolute;left:600px;top:120px;font-size:10px;color:rgba(93,78,231,0.6);font-family:'JetBrains Mono',monospace;">↳ skills as files</div>
-
-        <!-- Claude -->
-        <div style="position:absolute;left:880px;top:178px;width:240px;background:rgba(93,78,231,0.2);border:1px solid rgba(93,78,231,0.6);border-radius:12px;padding:20px 22px;">
-          <div style="font-size:16px;font-weight:700;color:#fff;">Claude Session</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;font-family:'JetBrains Mono',monospace;">Anthropic API · sandboxed<br/>reads skills as local files<br/>makes HTTP tool calls</div>
-        </div>
-
-        <!-- mitmproxy -->
-        <div style="position:absolute;left:880px;top:358px;width:240px;background:rgba(255,165,0,0.1);border:1px solid rgba(255,165,0,0.35);border-radius:12px;padding:18px 22px;">
-          <div style="font-size:15px;font-weight:700;color:rgba(255,165,0,0.9);">mitmproxy</div>
-          <div style="font-size:11px;color:rgba(255,255,255,0.5);margin-top:4px;font-family:'JetBrains Mono',monospace;">intercepts HTTP<br/>injects real credentials<br/>per-PID isolation</div>
-        </div>
-
-        <!-- Tools -->
-        <div style="position:absolute;left:570px;top:390px;width:200px;background:rgba(93,78,231,0.2);border:1px solid rgba(93,78,231,0.6);border-radius:10px;padding:16px 18px;">
-          <div style="font-size:14px;font-weight:700;color:#fff;">Distillery</div>
-          <div style="font-size:10px;color:rgba(93,78,231,0.9);margin-top:3px;font-family:'JetBrains Mono',monospace;">read + write</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;font-family:'JetBrains Mono',monospace;">routines · proposals · evals</div>
-        </div>
-
-        <div style="position:absolute;left:920px;top:500px;width:155px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:14px 16px;">
-          <div style="font-size:13px;font-weight:700;color:#fff;">Weave</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;font-family:'JetBrains Mono',monospace;">read · traces</div>
-        </div>
-
-        <div style="position:absolute;left:1230px;top:390px;width:155px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:14px 16px;">
-          <div style="font-size:13px;font-weight:700;color:#fff;">Jira</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;font-family:'JetBrains Mono',monospace;">read · tickets</div>
-        </div>
-
-        <div style="position:absolute;left:1370px;top:480px;width:150px;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.12);border-radius:10px;padding:14px 16px;">
-          <div style="font-size:13px;font-weight:700;color:#fff;">Databricks</div>
-          <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:3px;font-family:'JetBrains Mono',monospace;">read · prod data</div>
+        <!-- Context -->
+        <div style="border:1px solid rgba(255,255,255,0.12);border-radius:14px;padding:32px 36px;background:rgba(255,255,255,0.04);position:relative;">
+          <div style="position:absolute;top:-14px;left:28px;background:#170B2F;padding:0 12px;font-size:12px;font-weight:700;color:rgba(255,255,255,0.5);letter-spacing:0.1em;text-transform:uppercase;">Context</div>
+          <div style="font-size:26px;font-weight:700;color:#fff;margin-bottom:10px;">External tools</div>
+          <div style="font-size:14px;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;line-height:1.7;">
+            Weave · production traces<br/>
+            Jira · tickets &amp; defects<br/>
+            Databricks · prod data<br/>
+            W&amp;B · model monitoring
+          </div>
         </div>
 
       </div>
