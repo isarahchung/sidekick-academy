@@ -20,7 +20,7 @@
 
 *Say this:*
 
-"Tower is the agentic platform running in production across chat and voice at T-Mobile. It's one of the largest production agentic deployments in the industry — every T-Mobile customer touches it.
+"Tower is the agentic platform running in production across chat and voice for our client. It's one of the largest production agentic deployments in the industry — every Tower customer touches it.
 
 The team running it is about forty people — care, consumer, product, conversation design. They own the quality of every interaction. But they had no direct path to change anything. Every fix, every improvement, every tweak had to go through a developer.
 
