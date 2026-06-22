@@ -36,9 +36,11 @@ Tower runs on Distillery — the platform we've built for managing, versioning, 
 ## Slide 3 — What we built
 
 **What to say:**
-Sidekick is agent-chat from Toolkit, deployed into Tower's environment. Rachel Ombok and Eric Yu got it running highside on May 28 — that was the first real milestone. A bug bash followed the same day.
+This didn't start as a product. In January, AI strategists on each Tower pod were hitting friction on the Distillery platform — enough that they started building their own scripts on highside to get around it. That repo was called `distyl-scripts`. Austin and Eric moved it to Context Mesh in May as it matured.
 
-The key thing it unlocks: you can now RCA a defect, analyze production logs, or propose a routine change entirely in natural language. No need to know which routine to edit, what's active in production, or how to structure an eval.
+Those scripts became skills. AI strategists built them for themselves: editing routines, running evals, fixing defects. They worked. Then the team looked at the broader Tower team — ~40 non-technical stakeholders who were responsible for the quality of every interaction but had no path to change anything, some of whom had never used Claude or ChatGPT — and realized those same skills needed to be self-service. That's when Sidekick got a frontend.
+
+Rachel Ombok and Eric Yu got it deployed highside on May 28. Bug bash same day.
 
 **The proof point (land this):**
 Sam, a conversation designer, built a billing journey feature end-to-end using Sidekick. No engineers involved. Shipped with zero bugs for the 118 release. That's the vision working.
@@ -48,9 +50,11 @@ Sam, a conversation designer, built a billing journey feature end-to-end using S
 ## Slide 4 — Skills
 
 **What to say:**
-Skills are repeatable workflows — blueprints that tell the agent what to do in a given situation. Not code; structured instructions that shape how it sequences its tool calls.
+Skills weren't designed top-down. AI strategists on each pod built them for themselves first — real workflows they were running repeatedly: RCA a defect, run evals on a branch, fix a routine issue. Those became the catalog Sidekick exposes to everyone.
 
-Three categories cover most of what the team needs: building (edit routines, create evals, ship features), fixing (RCA, reproduce, fix), and monitoring (pull production logs, query Databricks, generate visuals). The fourth — Distillery Coach — handles onboarding for anyone new to the platform.
+That lineage matters. The skills are tuned to the actual work, not a hypothetical version of it. And because they came from people who knew the platform deeply, they encode the tribal knowledge that non-technical users would otherwise have no access to — which routine to check, which eval set to run, where a data issue vs. a routine issue shows up differently.
+
+Skills are prompt-based blueprints, not code. Structured instructions that shape how the agent sequences its tool calls for a given workflow.
 
 ---
 
@@ -93,9 +97,18 @@ The trajectory is clear — this is getting deeper, not going away.
 
 ## Likely engineer questions
 
-- **What's it built on?** — agent-chat from Toolkit. FastAPI backend, React 19 + TypeScript frontend, Claude via Anthropic SDK, agent-runner for session management and SSE streaming.
-- **How do skills work technically?** — Prompt-based blueprints loaded into agent context. Not code — structured instructions that shape tool sequencing.
-- **How does it connect to Weave/Jira/Databricks?** — User-provided API keys. Each connector calls the service under the user's credentials.
-- **How is it deployed?** — Kubernetes on Azure AKS (same infra as Distillery — "Stillhouse Basil"). Highside deployment requires Tailscale.
-- **What's agent-guild?** — Separate product in progress for Tower engineers. Sidekick targets non-engineers; agent-guild targets the dev side.
-- **Can I run it locally?** — Yes via Toolkit. Standard local dev setup; you'll need Tailscale for Distillery connectivity.
+- **What's it built on?** — agent-chat from Toolkit, renamed. FastAPI Python backend, React 19 + TypeScript frontend, Claude via Anthropic SDK. agent-runner manages session lifecycle and SSE event streaming. fe-distillery scans Context Mesh file stores in the agents folder to surface available agents. Sessions are sandboxed.
+
+- **How do the connectors (Weave, Jira, Databricks) actually work?** — User-provided API keys, entered in Sidekick's config panel. The agent-runner has a proxy manager that intercepts and injects those credentials for external API calls — no credentials are stored server-side under a shared account.
+
+- **How does Sidekick call Distillery?** — Via the same Fern-generated type-safe SDKs engineers use directly. No custom API layer. Same surface, same contracts.
+
+- **Does Sidekick change how Distillery works?** — No. It fits into the existing refinement loop: observe → edit on branch → test → propose → merge. Sidekick automates steps in that loop; it doesn't bypass it. Proposals still require evals and an approval.
+
+- **Does it work for voice workflows too, or just chat?** — Currently chat-focused. Tower voice (611) is a separate runtime. Voice workflow support is a natural extension but not yet scoped.
+
+- **How is it deployed?** — Kubernetes on Azure AKS (same infra as Distillery — "Stillhouse Basil"). Highside requires Tailscale. FluxCD auto-deploys from git.
+
+- **What's agent-guild?** — Separate product in progress for Tower engineers specifically. Sidekick targets non-engineers; agent-guild targets the dev side.
+
+- **Can I run it locally?** — Yes via Toolkit. Standard local dev setup; Tailscale needed for Distillery connectivity.
