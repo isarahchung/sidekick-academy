@@ -16,17 +16,15 @@
 
 ---
 
-## Slide 2 — The problem
+## Slide 3 — The problem
 
 *Say this:*
 
-"Tower is the agentic platform running in production across chat and voice for our client. It's one of the largest production agentic deployments in the industry — every Tower customer touches it.
+"Tower is Distyl's largest production deployment — an agentic platform running across chat and voice, built on Distillery.
 
-The team running it is about forty people — care, consumer, product, conversation design. They own the quality of every interaction. But they had no direct path to change anything. Every fix, every improvement, every tweak had to go through a developer.
+The teams using it — care, consumer, product, design, dev leads — all struggled to use Distillery directly. The routine editor required real hand-holding. Non-technical folks had never used AI tools before — some hadn't used ChatGPT. And it wasn't just them. Our own AI strategists hit the same wall internally. distyl-scripts was the workaround — a repo they built on highside to store the sequences and tribal knowledge the platform didn't surface.
 
-And here's the thing — even our own AI strategists were hitting friction. The Distillery platform had real usability problems. No documentation, no guidance, a routine editor that required heavy hand-holding. So they built their own scripts on highside just to get around it. That repo was called distyl-scripts. It became a place to store tribal knowledge — the sequences, the workarounds, the things you had to know to get anything done.
-
-When they realized the broader Tower team needed the same access, they built a frontend. That's Sidekick."
+When we realized the broader Tower team needed the same access, we built a frontend. That's Sidekick."
 
 ---
 
