@@ -99,6 +99,14 @@ Pre-open: Sidekick session, billing journey Weave project name ready to paste.
 - **Q:** Who approves a proposal?
   **A:** Your pod's dev lead or PO. They're the merge approver. For larger changes, the sync review with the broader group happens first, then they approve.
 
+## Follow-up action items
+
+From the post-session side conversation:
+
+- **Add Databricks skill to Sidekick** — Rohan to handle. Makes Databricks queries available as a native skill, not just via API key.
+- **Update Distillery Coach to cover all systems** — Currently scoped to one system; needs to be made accessible across all systems so any new user can use it regardless of which pod they're on. (Called "story coach" in Sarah's intro; same thing.)
+- **File upload** — Confirmed nice-to-have, not currently in progress. Paste content in for now.
+
 ## Hand-off
 
 This is a standalone intro session. The natural next step is hands-on time. Offer 1:1 walkthroughs — it doesn't take long and people adapt quickly. Access requests: ping Rohan directly or react to his original message in the meeting thread.
