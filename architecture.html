@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sidekick Architecture</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --hero: #170B2F;
+      --violet: #5D4EE7;
+      --violet-dim: rgba(93,78,231,0.2);
+      --white: #FFFFFF;
+      --muted: rgba(255,255,255,0.5);
+      --rule: rgba(255,255,255,0.12);
+    }
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--hero);
+      font-family: 'Inter', sans-serif;
+      color: var(--white);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    h1 {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin: 0 0 8px 0;
+      text-align: center;
+    }
+    .subtitle {
+      font-size: 14px;
+      color: var(--muted);
+      margin: 0 0 40px 0;
+      text-align: center;
+    }
+    .diagram {
+      position: relative;
+      width: 1100px;
+      height: 520px;
+    }
+    /* ── Nodes ── */
+    .node {
+      position: absolute;
+      border-radius: 12px;
+      padding: 16px 20px;
+      text-align: center;
+      border: 1px solid var(--rule);
+    }
+    .node .name {
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.2;
+    }
+    .node .desc {
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 5px;
+      line-height: 1.4;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .node.user     { background: rgba(255,255,255,0.06); width: 140px; }
+    .node.primary  { background: var(--violet-dim); border-color: var(--violet); width: 160px; }
+    .node.context  { background: rgba(255,255,255,0.06); width: 180px; }
+    .node.proxy    { background: rgba(255,165,0,0.12); border-color: rgba(255,165,0,0.4); width: 160px; }
+    .node.tool     { background: rgba(255,255,255,0.06); width: 140px; }
+    .node.distillery { background: var(--violet-dim); border-color: var(--violet); width: 160px; }
+
+    /* ── Labels on arrows ── */
+    .arrow-label {
+      position: absolute;
+      font-size: 10px;
+      color: var(--muted);
+      font-family: 'JetBrains Mono', monospace;
+      white-space: nowrap;
+      background: var(--hero);
+      padding: 1px 4px;
+    }
+
+    /* ── Section labels ── */
+    .section-label {
+      position: absolute;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--violet);
+    }
+  </style>
+</head>
+<body>
+
+<h1>How Sidekick Works</h1>
+<p class="subtitle">Session flow · credential injection · tool connections</p>
+
+<div class="diagram">
+
+  <!-- SVG arrows -->
+  <svg style="position:absolute;top:0;left:0;width:100%;height:100%;overflow:visible;pointer-events:none;">
+    <defs>
+      <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="rgba(255,255,255,0.35)" />
+      </marker>
+      <marker id="arr-v" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="rgba(93,78,231,0.7)" />
+      </marker>
+      <marker id="arr-o" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+        <path d="M0,0 L0,6 L8,3 z" fill="rgba(255,165,0,0.6)" />
+      </marker>
+    </defs>
+
+    <!-- User → Sidekick -->
+    <line x1="110" y1="100" x2="110" y2="154" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)" />
+
+    <!-- Sidekick → agent-runner -->
+    <line x1="110" y1="228" x2="110" y2="282" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)" />
+
+    <!-- agent-runner → Context Mesh -->
+    <line x1="191" y1="312" x2="340" y2="312" stroke="rgba(93,78,231,0.5)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-v)" />
+
+    <!-- agent-runner → Claude -->
+    <line x1="110" y1="356" x2="110" y2="408" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr)" />
+
+    <!-- Claude → mitmproxy -->
+    <line x1="380" y1="312" x2="380" y2="408" stroke="rgba(255,165,0,0.4)" stroke-width="1.5" stroke-dasharray="4,3" marker-end="url(#arr-o)" />
+
+    <!-- mitmproxy → Distillery -->
+    <line x1="340" y1="450" x2="210" y2="488" stroke="rgba(93,78,231,0.5)" stroke-width="1.5" marker-end="url(#arr-v)" />
+    <!-- mitmproxy → Weave -->
+    <line x1="370" y1="458" x2="390" y2="488" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#arr)" />
+    <!-- mitmproxy → Jira -->
+    <line x1="400" y1="458" x2="560" y2="488" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#arr)" />
+    <!-- mitmproxy → Databricks -->
+    <line x1="420" y1="452" x2="710" y2="488" stroke="rgba(255,255,255,0.25)" stroke-width="1.5" marker-end="url(#arr)" />
+
+    <!-- agent-runner vertical line down to Claude level for mitmproxy branch -->
+    <line x1="191" y1="330" x2="340" y2="330" stroke="rgba(255,165,0,0.25)" stroke-width="1" stroke-dasharray="3,3" />
+    <line x1="340" y1="310" x2="340" y2="410" stroke="rgba(255,165,0,0.25)" stroke-width="1" stroke-dasharray="3,3" />
+
+  </svg>
+
+  <!-- Section labels -->
+  <div class="section-label" style="left:30px; top:12px;">Interface</div>
+  <div class="section-label" style="left:30px; top:270px;">Runtime</div>
+  <div class="section-label" style="left:295px; top:270px;">Skills</div>
+  <div class="section-label" style="left:295px; top:398px;">Credential layer</div>
+  <div class="section-label" style="left:30px; top:476px;">Tools</div>
+
+  <!-- User -->
+  <div class="node user" style="left:30px; top:40px;">
+    <div class="name">User</div>
+    <div class="desc">browser session</div>
+  </div>
+
+  <!-- Sidekick frontend -->
+  <div class="node primary" style="left:30px; top:156px;">
+    <div class="name">Sidekick</div>
+    <div class="desc">agent-chat<br/>React · SSE stream</div>
+  </div>
+
+  <!-- agent-runner -->
+  <div class="node primary" style="left:30px; top:284px;">
+    <div class="name">agent-runner</div>
+    <div class="desc">FastAPI · session mgmt<br/>sandboxed Claude session</div>
+  </div>
+
+  <!-- Context Mesh -->
+  <div class="node context" style="left:340px; top:264px;">
+    <div class="name">Context Mesh</div>
+    <div class="desc">agents/ file store<br/>skills loaded at session start</div>
+    <div style="margin-top:10px; font-size:10px; color:var(--violet); font-weight:600;">
+      rca · fix-issue · quick-edit<br/>routine-explorer · evals…
+    </div>
+  </div>
+
+  <!-- Claude -->
+  <div class="node primary" style="left:30px; top:410px;">
+    <div class="name">Claude</div>
+    <div class="desc">Anthropic API<br/>tool calls → outgoing HTTP</div>
+  </div>
+
+  <!-- mitmproxy -->
+  <div class="node proxy" style="left:300px; top:410px;">
+    <div class="name">mitmproxy</div>
+    <div class="desc">intercepts HTTP · swaps<br/>dummy creds → real tokens<br/>per-PID isolation</div>
+  </div>
+
+  <!-- Tools row -->
+  <div class="node distillery" style="left:30px; top:490px;">
+    <div class="name">Distillery</div>
+    <div class="desc">Fern SDKs<br/>routines · proposals<br/>evals · branches</div>
+  </div>
+
+  <div class="node tool" style="left:320px; top:490px;">
+    <div class="name">Weave</div>
+    <div class="desc">production traces<br/>conversation replay</div>
+  </div>
+
+  <div class="node tool" style="left:490px; top:490px;">
+    <div class="name">Jira</div>
+    <div class="desc">tickets · defects<br/>RS- · OVA- · TLA-</div>
+  </div>
+
+  <div class="node tool" style="left:660px; top:490px;">
+    <div class="name">Databricks</div>
+    <div class="desc">production data<br/>usage queries</div>
+  </div>
+
+  <!-- Arrow labels -->
+  <div class="arrow-label" style="left:116px; top:118px;">chat messages</div>
+  <div class="arrow-label" style="left:116px; top:247px;">HTTP + SSE</div>
+  <div class="arrow-label" style="left:200px; top:298px;">load skills</div>
+  <div class="arrow-label" style="left:116px; top:376px;">Claude session</div>
+  <div class="arrow-label" style="left:346px; top:376px;">outgoing HTTP</div>
+  <div class="arrow-label" style="left:346px; top:462px;">inject real creds</div>
+
+</div>
+
+</body>
+</html>
