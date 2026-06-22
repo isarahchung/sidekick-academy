@@ -99,6 +99,40 @@ Pre-open: Sidekick session, billing journey Weave project name ready to paste.
 - **Q:** Who approves a proposal?
   **A:** Your pod's dev lead or PO. They're the merge approver. For larger changes, the sync review with the broader group happens first, then they approve.
 
+## Engineer questions
+
+Questions likely to come from engineers who know the codebase.
+
+- **Q:** What is Sidekick built on?
+  **A:** It's agent-chat from Toolkit, renamed. The frontend is React 19 + TypeScript (Vite), the backend is FastAPI Python. It uses the agent-runner for session management and SSE streaming of agent events. Previously referred to as "agent-chat" in the Toolkit repo.
+
+- **Q:** What model is it running?
+  **A:** Claude via the Anthropic SDK. The agent app manages runtime selection — it supports both Claude SDK and OpenCode runtimes.
+
+- **Q:** How do skills work technically?
+  **A:** Skills are prompt-based blueprints loaded into the agent context. They define a sequence of steps and tool calls the agent follows. Not code — they're instructions that shape how the agent sequences its tool use for a given workflow.
+
+- **Q:** How does it connect to Distillery, Weave, Jira, Databricks?
+  **A:** Via user-provided API keys entered in the Sidekick configuration panel. Each connector calls the respective service's API under the user's credentials. Distillery access is built in; third-party tools (Weave, Jira, Databricks) require the user to enter their own key.
+
+- **Q:** How is session state managed? Does it persist?
+  **A:** Currently sessions do not persist across restarts — files created in outputs/data folders are lost. Persistent sessions are on the roadmap (known bug, filed). Within a session, state is managed by the agent runtime in the agent app.
+
+- **Q:** How is it deployed highside?
+  **A:** Deployed to T-Mobile's highside environment (HS). Rachel Ombok and Eric Yu handled the first HS deployment in late May. Runs on Kubernetes (same infra as Distillery — Azure AKS "Stillhouse Basil"). Requires Tailscale VPN for internal access.
+
+- **Q:** How does the proposal flow work technically?
+  **A:** Proposals are a Distillery platform concept — a branch diff with an approval gate. Sidekick generates proposals by calling Distillery's branch/proposal API endpoints (Fern-generated SDKs). The proposal itself lives in Distillery, not in Sidekick.
+
+- **Q:** What's agent-guild?
+  **A:** A new repo product in progress for Tower engineers — separate from Sidekick (which targets non-engineers). Details still forming.
+
+- **Q:** Can I run it locally?
+  **A:** Yes via Toolkit. The agent and agent-chat apps are standard Toolkit apps with local dev setup. You'll need Tailscale for Distillery connectivity.
+
+- **Q:** What were the P0 bugs from Distyl Academy?
+  **A:** User impersonation, session pod restarts, and unintended Sidekick skill exposure. Most were caught during the bug bash on May 28 and addressed before the June 17 Sidekick Academy.
+
 ## Follow-up action items
 
 From the post-session side conversation:
