@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Reference Deck — Distyl Academy Slides</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./slides.css" />
+</head>
+<body>
+
+  <!-- 1. Title slide -->
+  <section class="slide">
+    <div class="slide-frame dark">
+      <div class="title-slide">
+        <div class="eyebrow on-dark">Reference Deck</div>
+        <h1 class="title">Slide Type Catalog</h1>
+        <div class="accent"></div>
+        <p class="subtitle">Distyl Academy · June 2026</p>
+        <div class="meta">Use this deck to verify visual fidelity before generating new content.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Section divider -->
+  <section class="slide">
+    <div class="slide-frame dark">
+      <div class="section-slide">
+        <div class="label">Part One</div>
+        <div class="name">Content Slides</div>
+        <div class="accent"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Headline + bullets -->
+  <section class="slide">
+    <div class="slide-frame light">
+      <div class="eyebrow">The mental model</div>
+      <h1 class="headline">A routine is a structured prompt with branches.</h1>
+      <ul class="bullets">
+        <li>Steps run top-to-bottom unless a conditional says otherwise</li>
+        <li>Each step can call tools, ask the model, or set a variable</li>
+        <li>Branches let you handle different user intents in one routine</li>
+        <li>Guardrails sit on top and can short-circuit any step</li>
+      </ul>
+      <div class="footer">
+        <span class="logo">Distyl</span>
+        <span class="slide-num">03</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Two-column comparison -->
+  <section class="slide">
+    <div class="slide-frame light">
+      <div class="eyebrow">Two modes</div>
+      <h1 class="headline">Chat vs. Simulation.</h1>
+      <div class="two-col">
+        <div class="col">
+          <h3>Chat</h3>
+          <p>Single conversation. You type, the routine runs, you see what happens.</p>
+          <ul>
+            <li>Fast iteration on prompts</li>
+            <li>Manual exploration</li>
+            <li>No graded outcome</li>
+          </ul>
+        </div>
+        <div class="col">
+          <h3>Simulation</h3>
+          <p>Runs an eval set against a branch. Each example uses a scenario for tool stubs.</p>
+          <ul>
+            <li>Deterministic, replayable</li>
+            <li>Graded against HLOs</li>
+            <li>Proves fixes hold</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="logo">Distyl</span>
+        <span class="slide-num">04</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Code / example -->
+  <section class="slide">
+    <div class="slide-frame light">
+      <div class="eyebrow">Tool response shape</div>
+      <h1 class="headline">What a tool gives the routine.</h1>
+      <pre class="code"><code>{
+  "claimed_this_week": false,
+  "current_streak": 3,
+  "streak_broken_last_week": false,
+  "weeks_claimed_this_year": 14,
+  "is_first_time": false,
+  "last_claimed_date": "2026-05-13"
+}</code></pre>
+      <div class="callout">
+        <span class="label">Note</span>
+        <span>Tool responses are stubbed in scenarios — the routine sees this shape whether or not the real API exists.</span>
+      </div>
+      <div class="footer">
+        <span class="logo">Distyl</span>
+        <span class="slide-num">05</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. Four-column anatomy -->
+  <section class="slide">
+    <div class="slide-frame light">
+      <div class="eyebrow">What the agent sees</div>
+      <h1 class="headline">Anatomy of a routine.</h1>
+      <div class="axis">
+        <span class="end">◀ Stable</span>
+        <span class="end">Volatile ▶</span>
+      </div>
+      <div class="four-col">
+        <div class="card">
+          <div class="card-header">
+            <span class="num">01</span>
+            <p class="name">Context</p>
+            <p class="meta">system + triage</p>
+          </div>
+          <div class="card-body">Persona, capabilities, and how to route intents. Same on every interaction.</div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="num">02</span>
+            <p class="name">Routine</p>
+            <p class="meta">steps + conditionals</p>
+          </div>
+          <div class="card-body">The active flow. Triage picks one per intent; steps run top-to-bottom unless a conditional says otherwise.</div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="num">03</span>
+            <p class="name">Tools</p>
+            <p class="meta">schemas + responses</p>
+          </div>
+          <div class="card-body">Actions the routine can take. Schemas are stable; responses change every call.</div>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <span class="num">04</span>
+            <p class="name">Conversation</p>
+            <p class="meta">turns so far</p>
+          </div>
+          <div class="card-body">User and assistant turns. Appended every exchange; drives the next step.</div>
+        </div>
+      </div>
+      <div class="footer">
+        <span class="logo">Distyl</span>
+        <span class="slide-num">06</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Quote -->
+  <section class="slide">
+    <div class="slide-frame light">
+      <div class="quote-slide">
+        <p class="quote">If you can't write the eval, you don't know what good looks like.</p>
+        <p class="attribution">— Internal Distyl wisdom</p>
+      </div>
+      <div class="footer">
+        <span class="logo">Distyl</span>
+        <span class="slide-num">07</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Closing -->
+  <section class="slide">
+    <div class="slide-frame dark">
+      <div class="section-slide">
+        <div class="label">Questions?</div>
+        <div class="name">Let's build.</div>
+        <div class="accent"></div>
+      </div>
+    </div>
+  </section>
+
+  <script src="./slides.js"></script>
+</body>
+</html>

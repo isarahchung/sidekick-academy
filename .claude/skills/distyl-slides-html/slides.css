@@ -1,0 +1,403 @@
+/* Distyl Academy slide styles.
+   Design surface is fixed at 1920x1080. slides.js scales each frame to fit the viewport. */
+
+:root {
+  --hero: #170B2F;
+  --violet: #5D4EE7;
+  --off-white: #F3F2F1;
+  --white: #FFFFFF;
+  --text: #121212;
+  --muted: #5F5B67;
+  --rule: #D6D3D1;
+  --warning: #B45309;
+  --warning-bg: #FEF3C7;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+  color: var(--text);
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+  overflow-y: scroll;
+  height: 100vh;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Slide container fills the viewport; black bars on aspect mismatch. */
+.slide {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+  background: #000;
+}
+
+/* The design surface. slides.js sets transform: translate(-50%,-50%) scale(s). */
+.slide-frame {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1920px;
+  height: 1080px;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  padding: 112px 144px;
+  overflow: hidden;
+}
+
+.slide-frame.dark  { background: var(--hero);      color: var(--white); }
+.slide-frame.light { background: var(--off-white); color: var(--text);  }
+
+/* ---------- Common atoms ---------- */
+
+.eyebrow {
+  font-size: 24px;
+  color: var(--violet);
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  margin: 0 0 32px 0;
+}
+.eyebrow.on-dark { color: var(--violet); }
+
+h1.headline,
+h1.title,
+.section-slide .name {
+  font-family: 'AlliancePlatt', 'Calibri Light', 'Inter', sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.015em;
+  margin: 0;
+}
+
+h1.headline {
+  font-size: 88px;
+  line-height: 1.05;
+  margin: 0 0 56px 0;
+  max-width: 1550px;
+}
+
+.lede {
+  font-size: 36px;
+  line-height: 1.35;
+  font-weight: 400;
+  margin: 0 0 48px 0;
+  max-width: 1500px;
+  color: var(--text);
+}
+.slide-frame.dark .lede { color: rgba(255,255,255,0.85); }
+
+.accent {
+  width: 240px;
+  height: 4px;
+  background: var(--violet);
+  border: 0;
+  margin: 0;
+}
+
+/* ---------- Title slide ---------- */
+
+.title-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  position: relative;
+}
+.title-slide h1.title {
+  font-size: 144px;
+  line-height: 1;
+  color: var(--white);
+}
+.title-slide .accent { margin: 56px 0; }
+.title-slide .subtitle {
+  font-size: 32px;
+  color: rgba(255,255,255,0.7);
+  margin: 0;
+}
+.title-slide .meta {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-size: 22px;
+  color: rgba(255,255,255,0.55);
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Section divider ---------- */
+
+.section-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  text-align: center;
+}
+.section-slide .label {
+  font-size: 22px;
+  color: var(--violet);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.section-slide .name {
+  font-size: 128px;
+  line-height: 1.05;
+  color: var(--white);
+}
+.section-slide .accent { margin-top: 56px; }
+
+/* ---------- Bullets ---------- */
+
+ul.bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 1550px;
+}
+ul.bullets li {
+  font-size: 32px;
+  line-height: 1.45;
+  margin-bottom: 28px;
+  padding-left: 44px;
+  position: relative;
+}
+ul.bullets li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--violet);
+}
+ul.bullets li:last-child { margin-bottom: 0; }
+.slide-frame.dark ul.bullets li { color: rgba(255,255,255,0.9); }
+
+/* ---------- Two-column ---------- */
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  margin-top: 8px;
+}
+.col {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 14px;
+  padding: 56px;
+}
+.col h3 {
+  font-family: 'AlliancePlatt', 'Calibri Light', 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 44px;
+  margin: 0 0 24px 0;
+  line-height: 1.1;
+}
+.col p, .col li {
+  font-size: 26px;
+  line-height: 1.5;
+  color: var(--text);
+  margin: 0 0 16px 0;
+}
+.col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.col ul li {
+  padding-left: 28px;
+  position: relative;
+}
+.col ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.6em;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--violet);
+}
+
+/* ---------- Four-column (anatomy cards) ---------- */
+
+.axis {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--hero);
+  color: var(--white);
+  padding: 18px 36px;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-top: 8px;
+}
+.axis .end {
+  color: rgba(255,255,255,0.65);
+}
+
+.four-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+.four-col .card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.four-col .card-header {
+  padding: 28px 32px 20px;
+  border-bottom: 3px solid var(--violet);
+}
+.four-col .card-header .num {
+  display: block;
+  font-family: 'AlliancePlatt', 'Calibri Light', 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 32px;
+  color: var(--violet);
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.four-col .card-header .name {
+  font-size: 26px;
+  font-weight: 600;
+  color: var(--text);
+  margin: 0;
+  line-height: 1.15;
+}
+.four-col .card-header .meta {
+  font-size: 16px;
+  color: var(--muted);
+  margin-top: 6px;
+  font-family: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  letter-spacing: -0.01em;
+}
+.four-col .card-body {
+  padding: 24px 32px 28px;
+  font-size: 19px;
+  line-height: 1.5;
+  color: var(--text);
+  flex: 1;
+}
+
+/* ---------- Code ---------- */
+
+pre.code {
+  background: var(--hero);
+  color: #e8e3f5;
+  padding: 40px 48px;
+  border-radius: 12px;
+  font-family: 'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 24px;
+  line-height: 1.55;
+  margin: 0;
+  overflow: hidden;
+}
+pre.code code { color: inherit; font-family: inherit; }
+
+/* ---------- Callout ---------- */
+
+.callout {
+  background: var(--hero);
+  color: var(--white);
+  padding: 36px 44px;
+  border-radius: 12px;
+  font-size: 28px;
+  line-height: 1.45;
+  margin-top: 40px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.callout .label {
+  color: var(--violet);
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.callout.warn {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+.callout.warn .label { color: var(--warning); }
+
+/* ---------- Quote ---------- */
+
+.quote-slide {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  max-width: 1500px;
+}
+.quote-slide .quote {
+  font-family: 'AlliancePlatt', 'Calibri Light', 'Inter', sans-serif;
+  font-weight: 300;
+  font-size: 72px;
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+  margin: 0;
+  color: var(--text);
+}
+.quote-slide .attribution {
+  font-size: 28px;
+  color: var(--muted);
+  margin: 48px 0 0 0;
+}
+
+/* ---------- Footer ---------- */
+
+.footer {
+  position: absolute;
+  bottom: 64px;
+  left: 144px;
+  right: 144px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  letter-spacing: -0.01em;
+}
+.footer .logo {
+  display: inline-block;
+  width: 168px;
+  height: 45px;
+  background-color: var(--hero);
+  /* Source: distyl-logo.svg in this folder. Inlined as base64 so it works when slides are opened via file:// (browsers block external SVG masks under file://). */
+  -webkit-mask: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNTMgNDEiIGZpbGw9ImJsYWNrIj4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTMsIC0xOSkiPgogICAgPHBhdGggZD0iTTI3Ljg0NTggMjUuMDIxNkg0MC4yMjM5TDM0LjAzNDggMzUuNDUxNEwzNy42MjY5IDQxLjUxMTRMNTEgMTlIMjQuMjYzN0wyNy44NDU4IDI1LjAyMTZaIi8+CiAgICA8cGF0aCBkPSJNMTMgMTlMMzEuOTk1IDUxTDM1LjU5NyA0NC45NEwyMC4xOTQgMTlIMTNaIi8+CiAgPC9nPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUyLCAwKSI+CiAgICA8cGF0aCBkPSJNMTAuNjk0IDMxLjkwNTZIMFYxLjcyNDIzSDEwLjc4MjRDMTMuODE2OCAxLjcyNDIzIDE2LjQyODkgMi4zMjg0IDE4LjYxODcgMy41MzY5QzIwLjgwODYgNC43MzU1IDIyLjQ5MjcgNi40NTk3IDIzLjY3MTEgOC43MDk2QzI0Ljg1OTQgMTAuOTU5NCAyNS40NTM1IDEzLjY1MTQgMjUuNDUzNSAxNi43ODU0QzI1LjQ1MzUgMTkuOTI5MyAyNC44NTk0IDIyLjYzMTEgMjMuNjcxMSAyNC44OTA4QzIyLjQ5MjcgMjcuMTUwNSAyMC43OTg4IDI4Ljg4NDUgMTguNTg5MyAzMC4wOTI5QzE2LjM4OTYgMzEuMzAxNCAxMy43NTc4IDMxLjkwNTYgMTAuNjk0IDMxLjkwNTZaTTYuMzc4MSAyNi40MzgySDEwLjQyODhDMTIuMzE0MyAyNi40MzgyIDEzLjkwMDIgMjYuMTA0MSAxNS4xODY2IDI1LjQzNjFDMTYuNDgyOSAyNC43NTgyIDE3LjQ1NTEgMjMuNzExOCAxOC4xMDMyIDIyLjI5NzFDMTguNzYxMSAyMC44NzI1IDE5LjA5MDEgMTkuMDM1MyAxOS4wOTAxIDE2Ljc4NTRDMTkuMDkwMSAxNC41NTUyIDE4Ljc2MTEgMTIuNzMyOCAxOC4xMDMyIDExLjMxOEMxNy40NTUxIDkuOTAzMyAxNi40ODc4IDguODYxOCAxNS4yMDE0IDguMTkzOEMxMy45MTUgNy41MjU3IDEyLjMyOSA3LjE5MTcgMTAuNDQzNiA3LjE5MTdINi4zNzgxVjI2LjQzODJaIi8+CiAgICA8cGF0aCBkPSJNMjcuOTg2MyAzMS45MDU2VjkuMjY5NkgzNC4yNjEzVjMxLjkwNTZIMjcuOTg2M1pNMzEuMTM4NSA2LjM1MTZDMzAuMjA1NiA2LjM1MTYgMjkuNDA1MyA2LjA0MjIgMjguNzM3NSA1LjQyMzJDMjguMDc5NiA0Ljc5NDQgMjcuNzUwNiA0LjA0MjkgMjcuNzUwNiAzLjE2ODVDMjcuNzUwNiAyLjMwMzkgMjguMDc5NiAxLjU2MjEyIDI4LjczNzUgMC45NDMxN0MyOS40MDUzIDAuMzE0MzkgMzAuMjA1NiAwIDMxLjEzODUgMEMzMi4wNzE0IDAgMzIuODY2OCAwLjMxNDM5IDMzLjUyNDggMC45NDMxN0MzNC4xOTI1IDEuNTYyMTIgMzQuNTI2NCAyLjMwMzkgMzQuNTI2NCAzLjE2ODVDMzQuNTI2NCA0LjA0MjkgMzQuMTkyNSA0Ljc5NDQgMzMuNTI0OCA1LjQyMzJDMzIuODY2OCA2LjA0MjIgMzIuMDcxNCA2LjM1MTYgMzEuMTM4NSA2LjM1MTZaIi8+CiAgICA8cGF0aCBkPSJNNTYuMDM5IDE1LjcyNDRMNTAuMjk0IDE2LjA3ODFDNTAuMTk2IDE1LjU4NjggNDkuOTg1IDE1LjE0NDcgNDkuNjYxIDE0Ljc1MTdDNDkuMzM3IDE0LjM0ODkgNDguOTEgMTQuMDI5NiA0OC4zNzkgMTMuNzkzOEM0Ny44NTkgMTMuNTQ4MiA0Ny4yMzUgMTMuNDI1NCA0Ni41MDkgMTMuNDI1NEM0NS41MzYgMTMuNDI1NCA0NC43MTYgMTMuNjMxNyA0NC4wNDkgMTQuMDQ0NEM0My4zODEgMTQuNDQ3MiA0My4wNDcgMTQuOTg3NSA0My4wNDcgMTUuNjY1NEM0My4wNDcgMTYuMjA1OCA0My4yNjMgMTYuNjYyNiA0My42OTUgMTcuMDM2QzQ0LjEyNyAxNy40MDkzIDQ0Ljg2OSAxNy43MDkgNDUuOTE5IDE3LjkzNDlMNTAuMDE0IDE4Ljc2MDJDNTIuMjE0IDE5LjIxMjEgNTMuODU0IDE5LjkzOTIgNTQuOTM0IDIwLjk0MTNDNTYuMDE0IDIxLjk0MzQgNTYuNTU0IDIzLjI1OTkgNTYuNTU0IDI0Ljg5MDhDNTYuNTU0IDI2LjM3NDMgNTYuMTE3IDI3LjY3NjEgNTUuMjQzIDI4Ljc5NjFDNTQuMzc5IDI5LjkxNjEgNTMuMTkxIDMwLjc5MDUgNTEuNjc5IDMxLjQxOTNDNTAuMTc2IDMyLjAzODIgNDguNDQzIDMyLjM0NzcgNDYuNDc5IDMyLjM0NzdDNDMuNDg0IDMyLjM0NzcgNDEuMDk3NyAzMS43MjM4IDM5LjMyMDMgMzAuNDc2MUMzNy41NTI3IDI5LjIxODYgMzYuNTE2NyAyNy41MDkxIDM2LjIxMjMgMjUuMzQ3Nkw0Mi4zODQgMjUuMDIzNEM0Mi41NzEgMjUuOTM3MSA0My4wMjIgMjYuNjM0NyA0My43MzkgMjcuMTE2MUM0NC40NTYgMjcuNTg3NyA0NS4zNzQgMjcuODIzNSA0Ni40OTQgMjcuODIzNUM0Ny41OTQgMjcuODIzNSA0OC40NzcgMjcuNjEyMiA0OS4xNDUgMjcuMTg5OEM0OS44MjMgMjYuNzU3NSA1MC4xNjYgMjYuMjAyNCA1MC4xNzYgMjUuNTI0NUM1MC4xNjYgMjQuOTU0NiA0OS45MjYgMjQuNDg4IDQ5LjQ1NSAyNC4xMjQ1QzQ4Ljk4MyAyMy43NTExIDQ4LjI1NyAyMy40NjYyIDQ3LjI3NSAyMy4yNjk3TDQzLjM1NiAyMi40ODg3QzQxLjE0NjggMjIuMDQ2NSAzOS41MDIgMjEuMjgwMiAzOC40MjE4IDIwLjE4OTdDMzcuMzUxNCAxOS4wOTkxIDM2LjgxNjIgMTcuNzA5IDM2LjgxNjIgMTYuMDE5MUMzNi44MTYyIDE0LjU2NTEgMzcuMjA5IDEzLjMxMjQgMzcuOTk0NiAxMi4yNjEyQzM4Ljc5IDExLjIwOTkgMzkuOTA0NiAxMC4zOTk0IDQxLjMzODMgOS44Mjk1OUM0Mi43ODIgOS4yNTk2OSA0NC40NzEgOC45NzQ3OSA0Ni40MDUgOC45NzQ3OUM0OS4yNjMgOC45NzQ3OSA1MS41MTIgOS41Nzg5OSA1My4xNTIgMTAuNzg3NUM1NC44MDIgMTEuOTk1OSA1NS43NjQgMTMuNjQxNSA1Ni4wMzkgMTUuNzI0NFoiLz4KICAgIDxwYXRoIGQ9Ik03MC42ODMgOS4yNjk2TDcyLjMyNiAxMy45ODU0SDU2Ljg0MVY5LjI2OTZINzAuNjgzWk01OS45MzQgMy44NDY0MUg2Ni4yMDlWMjQuOTQ5N0M2Ni4yMDkgMjUuNTI5NCA2Ni4yOTggMjUuOTgxMyA2Ni40NzQgMjYuMzA1NUM2Ni42NTEgMjYuNjE5OSA2Ni44OTcgMjYuODQxIDY3LjIxMSAyNi45Njg3QzY3LjUzNSAyNy4wOTY0IDY3LjkwOCAyNy4xNjAzIDY4LjMzIDI3LjE2MDNDNjguNjI1IDI3LjE2MDMgNjguOTIgMjcuMTM1NyA2OS4yMTQgMjcuMDg2NkM2OS41MDkgMjcuMDI3NyA2OS43MzUgMjYuOTgzNCA2OS44OTIgMjYuOTU0TDcwLjg3OSAzMS42MjU2QzcwLjU2NCAzMS43MjM4IDcwLjEyMiAzMS44MzY4IDY5LjU1MyAzMS45NjQ1QzY4Ljk4MyAzMi4xMDIxIDY4LjI5MSAzMi4xODU2IDY3LjQ3NiAzMi4yMTUxQzY1Ljk2NCAzMi4yNzQgNjQuNjM4IDMyLjA3MjYgNjMuNDk5IDMxLjYxMDlDNjIuMzcgMzEuMTQ5MSA2MS40OTEgMzAuNDMxOSA2MC44NjIgMjkuNDU5M0M2MC4yMzQgMjguNDg2NiA1OS45MjQgMjcuMjU4NSA1OS45MzQgMjUuNzc1VjMuODQ2NDFaIi8+CiAgICA8cGF0aCBkPSJNNzYuMzU0IDQwLjM5NDFDNzUuNTU4IDQwLjM5NDEgNzQuODEyIDQwLjMzMDIgNzQuMTE1IDQwLjIwMjVDNzMuNDI3IDQwLjA4NDYgNzIuODU4IDM5LjkzMjMgNzIuNDA2IDM5Ljc0NTdMNzMuODIgMzUuMDU5M0M3NC41NTcgMzUuMjg1MyA3NS4yMiAzNS40MDgxIDc1LjgwOSAzNS40Mjc3Qzc2LjQwOCAzNS40NDc0IDc2LjkyMyAzNS4zMDk4IDc3LjM1NSAzNS4wMTUxQzc3Ljc5NyAzNC43MjA0IDc4LjE1NiAzNC4yMTkzIDc4LjQzMSAzMy41MTE5TDc4Ljc5OSAzMi41NTRMNzAuNjgzIDkuMjY5NTlINzcuMjgyTDgxLjk2NiAyNS44OTI5SDgyLjIwMkw4Ni45MyA5LjI2OTU5SDkzLjU3M0w4NC43NzkgMzQuMzUxOUM4NC4zNTcgMzUuNTcwMiA4My43ODMgMzYuNjMxMyA4My4wNTYgMzcuNTM1MUM4Mi4zMzkgMzguNDQ4OCA4MS40MzEgMzkuMTUxMyA4MC4zMzEgMzkuNjQyNUM3OS4yMzEgNDAuMTQzNiA3Ny45MDUgNDAuMzk0MSA3Ni4zNTQgNDAuMzk0MVoiLz4KICAgIDxwYXRoIGQ9Ik0xMDAuOTg1IDEuNzI0MjNWMzEuOTA1Nkg5NC43MVYxLjcyNDIzSDEwMC45ODVaIi8+CiAgPC9nPgo8L3N2Zz4K") no-repeat left center / contain;
+          mask: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxNTMgNDEiIGZpbGw9ImJsYWNrIj4KICA8ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgtMTMsIC0xOSkiPgogICAgPHBhdGggZD0iTTI3Ljg0NTggMjUuMDIxNkg0MC4yMjM5TDM0LjAzNDggMzUuNDUxNEwzNy42MjY5IDQxLjUxMTRMNTEgMTlIMjQuMjYzN0wyNy44NDU4IDI1LjAyMTZaIi8+CiAgICA8cGF0aCBkPSJNMTMgMTlMMzEuOTk1IDUxTDM1LjU5NyA0NC45NEwyMC4xOTQgMTlIMTNaIi8+CiAgPC9nPgogIDxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDUyLCAwKSI+CiAgICA8cGF0aCBkPSJNMTAuNjk0IDMxLjkwNTZIMFYxLjcyNDIzSDEwLjc4MjRDMTMuODE2OCAxLjcyNDIzIDE2LjQyODkgMi4zMjg0IDE4LjYxODcgMy41MzY5QzIwLjgwODYgNC43MzU1IDIyLjQ5MjcgNi40NTk3IDIzLjY3MTEgOC43MDk2QzI0Ljg1OTQgMTAuOTU5NCAyNS40NTM1IDEzLjY1MTQgMjUuNDUzNSAxNi43ODU0QzI1LjQ1MzUgMTkuOTI5MyAyNC44NTk0IDIyLjYzMTEgMjMuNjcxMSAyNC44OTA4QzIyLjQ5MjcgMjcuMTUwNSAyMC43OTg4IDI4Ljg4NDUgMTguNTg5MyAzMC4wOTI5QzE2LjM4OTYgMzEuMzAxNCAxMy43NTc4IDMxLjkwNTYgMTAuNjk0IDMxLjkwNTZaTTYuMzc4MSAyNi40MzgySDEwLjQyODhDMTIuMzE0MyAyNi40MzgyIDEzLjkwMDIgMjYuMTA0MSAxNS4xODY2IDI1LjQzNjFDMTYuNDgyOSAyNC43NTgyIDE3LjQ1NTEgMjMuNzExOCAxOC4xMDMyIDIyLjI5NzFDMTguNzYxMSAyMC44NzI1IDE5LjA5MDEgMTkuMDM1MyAxOS4wOTAxIDE2Ljc4NTRDMTkuMDkwMSAxNC41NTUyIDE4Ljc2MTEgMTIuNzMyOCAxOC4xMDMyIDExLjMxOEMxNy40NTUxIDkuOTAzMyAxNi40ODc4IDguODYxOCAxNS4yMDE0IDguMTkzOEMxMy45MTUgNy41MjU3IDEyLjMyOSA3LjE5MTcgMTAuNDQzNiA3LjE5MTdINi4zNzgxVjI2LjQzODJaIi8+CiAgICA8cGF0aCBkPSJNMjcuOTg2MyAzMS45MDU2VjkuMjY5NkgzNC4yNjEzVjMxLjkwNTZIMjcuOTg2M1pNMzEuMTM4NSA2LjM1MTZDMzAuMjA1NiA2LjM1MTYgMjkuNDA1MyA2LjA0MjIgMjguNzM3NSA1LjQyMzJDMjguMDc5NiA0Ljc5NDQgMjcuNzUwNiA0LjA0MjkgMjcuNzUwNiAzLjE2ODVDMjcuNzUwNiAyLjMwMzkgMjguMDc5NiAxLjU2MjEyIDI4LjczNzUgMC45NDMxN0MyOS40MDUzIDAuMzE0MzkgMzAuMjA1NiAwIDMxLjEzODUgMEMzMi4wNzE0IDAgMzIuODY2OCAwLjMxNDM5IDMzLjUyNDggMC45NDMxN0MzNC4xOTI1IDEuNTYyMTIgMzQuNTI2NCAyLjMwMzkgMzQuNTI2NCAzLjE2ODVDMzQuNTI2NCA0LjA0MjkgMzQuMTkyNSA0Ljc5NDQgMzMuNTI0OCA1LjQyMzJDMzIuODY2OCA2LjA0MjIgMzIuMDcxNCA2LjM1MTYgMzEuMTM4NSA2LjM1MTZaIi8+CiAgICA8cGF0aCBkPSJNNTYuMDM5IDE1LjcyNDRMNTAuMjk0IDE2LjA3ODFDNTAuMTk2IDE1LjU4NjggNDkuOTg1IDE1LjE0NDcgNDkuNjYxIDE0Ljc1MTdDNDkuMzM3IDE0LjM0ODkgNDguOTEgMTQuMDI5NiA0OC4zNzkgMTMuNzkzOEM0Ny44NTkgMTMuNTQ4MiA0Ny4yMzUgMTMuNDI1NCA0Ni41MDkgMTMuNDI1NEM0NS41MzYgMTMuNDI1NCA0NC43MTYgMTMuNjMxNyA0NC4wNDkgMTQuMDQ0NEM0My4zODEgMTQuNDQ3MiA0My4wNDcgMTQuOTg3NSA0My4wNDcgMTUuNjY1NEM0My4wNDcgMTYuMjA1OCA0My4yNjMgMTYuNjYyNiA0My42OTUgMTcuMDM2QzQ0LjEyNyAxNy40MDkzIDQ0Ljg2OSAxNy43MDkgNDUuOTE5IDE3LjkzNDlMNTAuMDE0IDE4Ljc2MDJDNTIuMjE0IDE5LjIxMjEgNTMuODU0IDE5LjkzOTIgNTQuOTM0IDIwLjk0MTNDNTYuMDE0IDIxLjk0MzQgNTYuNTU0IDIzLjI1OTkgNTYuNTU0IDI0Ljg5MDhDNTYuNTU0IDI2LjM3NDMgNTYuMTE3IDI3LjY3NjEgNTUuMjQzIDI4Ljc5NjFDNTQuMzc5IDI5LjkxNjEgNTMuMTkxIDMwLjc5MDUgNTEuNjc5IDMxLjQxOTNDNTAuMTc2IDMyLjAzODIgNDguNDQzIDMyLjM0NzcgNDYuNDc5IDMyLjM0NzdDNDMuNDg0IDMyLjM0NzcgNDEuMDk3NyAzMS43MjM4IDM5LjMyMDMgMzAuNDc2MUMzNy41NTI3IDI5LjIxODYgMzYuNTE2NyAyNy41MDkxIDM2LjIxMjMgMjUuMzQ3Nkw0Mi4zODQgMjUuMDIzNEM0Mi41NzEgMjUuOTM3MSA0My4wMjIgMjYuNjM0NyA0My43MzkgMjcuMTE2MUM0NC40NTYgMjcuNTg3NyA0NS4zNzQgMjcuODIzNSA0Ni40OTQgMjcuODIzNUM0Ny41OTQgMjcuODIzNSA0OC40NzcgMjcuNjEyMiA0OS4xNDUgMjcuMTg5OEM0OS44MjMgMjYuNzU3NSA1MC4xNjYgMjYuMjAyNCA1MC4xNzYgMjUuNTI0NUM1MC4xNjYgMjQuOTU0NiA0OS45MjYgMjQuNDg4IDQ5LjQ1NSAyNC4xMjQ1QzQ4Ljk4MyAyMy43NTExIDQ4LjI1NyAyMy40NjYyIDQ3LjI3NSAyMy4yNjk3TDQzLjM1NiAyMi40ODg3QzQxLjE0NjggMjIuMDQ2NSAzOS41MDIgMjEuMjgwMiAzOC40MjE4IDIwLjE4OTdDMzcuMzUxNCAxOS4wOTkxIDM2LjgxNjIgMTcuNzA5IDM2LjgxNjIgMTYuMDE5MUMzNi44MTYyIDE0LjU2NTEgMzcuMjA5IDEzLjMxMjQgMzcuOTk0NiAxMi4yNjEyQzM4Ljc5IDExLjIwOTkgMzkuOTA0NiAxMC4zOTk0IDQxLjMzODMgOS44Mjk1OUM0Mi43ODIgOS4yNTk2OSA0NC40NzEgOC45NzQ3OSA0Ni40MDUgOC45NzQ3OUM0OS4yNjMgOC45NzQ3OSA1MS41MTIgOS41Nzg5OSA1My4xNTIgMTAuNzg3NUM1NC44MDIgMTEuOTk1OSA1NS43NjQgMTMuNjQxNSA1Ni4wMzkgMTUuNzI0NFoiLz4KICAgIDxwYXRoIGQ9Ik03MC42ODMgOS4yNjk2TDcyLjMyNiAxMy45ODU0SDU2Ljg0MVY5LjI2OTZINzAuNjgzWk01OS45MzQgMy44NDY0MUg2Ni4yMDlWMjQuOTQ5N0M2Ni4yMDkgMjUuNTI5NCA2Ni4yOTggMjUuOTgxMyA2Ni40NzQgMjYuMzA1NUM2Ni42NTEgMjYuNjE5OSA2Ni44OTcgMjYuODQxIDY3LjIxMSAyNi45Njg3QzY3LjUzNSAyNy4wOTY0IDY3LjkwOCAyNy4xNjAzIDY4LjMzIDI3LjE2MDNDNjguNjI1IDI3LjE2MDMgNjguOTIgMjcuMTM1NyA2OS4yMTQgMjcuMDg2NkM2OS41MDkgMjcuMDI3NyA2OS43MzUgMjYuOTgzNCA2OS44OTIgMjYuOTU0TDcwLjg3OSAzMS42MjU2QzcwLjU2NCAzMS43MjM4IDcwLjEyMiAzMS44MzY4IDY5LjU1MyAzMS45NjQ1QzY4Ljk4MyAzMi4xMDIxIDY4LjI5MSAzMi4xODU2IDY3LjQ3NiAzMi4yMTUxQzY1Ljk2NCAzMi4yNzQgNjQuNjM4IDMyLjA3MjYgNjMuNDk5IDMxLjYxMDlDNjIuMzcgMzEuMTQ5MSA2MS40OTEgMzAuNDMxOSA2MC44NjIgMjkuNDU5M0M2MC4yMzQgMjguNDg2NiA1OS45MjQgMjcuMjU4NSA1OS45MzQgMjUuNzc1VjMuODQ2NDFaIi8+CiAgICA8cGF0aCBkPSJNNzYuMzU0IDQwLjM5NDFDNzUuNTU4IDQwLjM5NDEgNzQuODEyIDQwLjMzMDIgNzQuMTE1IDQwLjIwMjVDNzMuNDI3IDQwLjA4NDYgNzIuODU4IDM5LjkzMjMgNzIuNDA2IDM5Ljc0NTdMNzMuODIgMzUuMDU5M0M3NC41NTcgMzUuMjg1MyA3NS4yMiAzNS40MDgxIDc1LjgwOSAzNS40Mjc3Qzc2LjQwOCAzNS40NDc0IDc2LjkyMyAzNS4zMDk4IDc3LjM1NSAzNS4wMTUxQzc3Ljc5NyAzNC43MjA0IDc4LjE1NiAzNC4yMTkzIDc4LjQzMSAzMy41MTE5TDc4Ljc5OSAzMi41NTRMNzAuNjgzIDkuMjY5NTlINzcuMjgyTDgxLjk2NiAyNS44OTI5SDgyLjIwMkw4Ni45MyA5LjI2OTU5SDkzLjU3M0w4NC43NzkgMzQuMzUxOUM4NC4zNTcgMzUuNTcwMiA4My43ODMgMzYuNjMxMyA4My4wNTYgMzcuNTM1MUM4Mi4zMzkgMzguNDQ4OCA4MS40MzEgMzkuMTUxMyA4MC4zMzEgMzkuNjQyNUM3OS4yMzEgNDAuMTQzNiA3Ny45MDUgNDAuMzk0MSA3Ni4zNTQgNDAuMzk0MVoiLz4KICAgIDxwYXRoIGQ9Ik0xMDAuOTg1IDEuNzI0MjNWMzEuOTA1Nkg5NC43MVYxLjcyNDIzSDEwMC45ODVaIi8+CiAgPC9nPgo8L3N2Zz4K") no-repeat left center / contain;
+  font-size: 0;
+  line-height: 0;
+  color: transparent;
+}
+.slide-frame.dark .footer .logo {
+  background-color: var(--white);
+}
+.footer .slide-num {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 26px;
+  color: var(--hero);
+  line-height: 1;
+}
+
+.slide-frame.dark .footer .logo,
+.slide-frame.dark .footer .slide-num {
+  color: var(--white);
+}
