@@ -8,6 +8,13 @@
 
 This is a product story, not a tutorial. The through-line: Distyl built something that lets non-engineers ship AI — and it worked. Each slide earns the next one.
 
+**The real problem underneath (know this, don't lead with it):**
+Distillery had a trust and usability problem before Sidekick existed. The routine editor wasn't intuitive. There was no documentation or guidance. Engineers were juggling delivery work and platform work simultaneously with significant tech debt. One engineer put it directly: *"Distillery is currently not a platform I'm even remotely proud of."* Users at Tower lost trust due to platform unreliability and required heavy hand-holding — not because they were unsophisticated, but because the platform didn't meet them.
+
+distyl-scripts was the team's response to that. It became a place to store tribal knowledge — the workarounds, the sequences, the things you had to know to get anything done. Sidekick surfaced that knowledge and made it self-service.
+
+This context sharpens the story: Sidekick wasn't a nice-to-have on top of a healthy platform. It was a response to a real gap. Use it to answer "why did this need to exist?" — don't lead with it.
+
 ---
 
 ## Slide 1 — Title: Sidekick
@@ -31,12 +38,15 @@ That's the gap Sidekick closes.
 **If they ask about the architecture:**
 Tower runs on Distillery — the platform we've built for managing, versioning, and running AI workflows. fe-distillery is the frontend. Routines are the core primitive: structured AI workflows with steps, tool calls, and conditional logic. Sidekick wraps all of that in a natural language interface.
 
+**If they ask why non-engineers couldn't just use Distillery directly:**
+The routine editor isn't intuitive — it required significant hand-holding even for people who were technically comfortable. There was no documentation or in-product guidance. That's not on the users. Sidekick bypasses that friction entirely by letting them describe what they want in plain language.
+
 ---
 
 ## Slide 3 — What we built
 
 **What to say:**
-This didn't start as a product. In January, AI strategists on each Tower pod were hitting friction on the Distillery platform — enough that they started building their own scripts on highside to get around it. That repo was called `distyl-scripts`. Austin and Eric moved it to Context Mesh in May as it matured.
+This didn't start as a product. In January, AI strategists on each Tower pod were hitting friction on the Distillery platform — no documentation, no guidance, a routine editor that required heavy hand-holding to use. They started building their own scripts on highside to get around it. That repo was called `distyl-scripts`. It became a place to store tribal knowledge: the sequences, the workarounds, the things you had to know to get anything done. Austin and Eric moved it to Context Mesh in May as it matured.
 
 Those scripts became skills. AI strategists built them for themselves: editing routines, running evals, fixing defects. They worked. Then the team looked at the broader Tower team — ~40 non-technical stakeholders who were responsible for the quality of every interaction but had no path to change anything, some of whom had never used Claude or ChatGPT — and realized those same skills needed to be self-service. That's when Sidekick got a frontend.
 
@@ -104,6 +114,8 @@ The trajectory is clear — this is getting deeper, not going away.
 - **How does Sidekick call Distillery?** — Via the same Fern-generated type-safe SDKs engineers use directly. No custom API layer. Same surface, same contracts.
 
 - **Does Sidekick change how Distillery works?** — No. It fits into the existing refinement loop: observe → edit on branch → test → propose → merge. Sidekick automates steps in that loop; it doesn't bypass it. Proposals still require evals and an approval.
+
+- **Is Sidekick a workaround for Distillery's UX problems?** — Partly, honestly. The routine editor has real usability issues and there's been limited documentation. Sidekick abstracts that friction. But it's also more than a workaround — it's a different model for how non-engineers interact with the system. The embedded Sidekick work (Distillery-native) is where those two things converge.
 
 - **Does it work for voice workflows too, or just chat?** — Currently chat-focused. Tower voice (611) is a separate runtime. Voice workflow support is a natural extension but not yet scoped.
 
