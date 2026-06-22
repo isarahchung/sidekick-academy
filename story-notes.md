@@ -2,85 +2,141 @@
 
 **Deck:** [story.html](./story.html)
 **Audience:** Distyl engineers who don't know Tower
-**Format:** ~2 min per slide · 5 min demo · 10 min Q&A
-
-## The arc
-
-Distyl built something that lets non-engineers ship AI — and it worked. Each slide earns the next one.
-
-**Know this, don't lead with it:** Distillery had a real trust and usability problem. The routine editor wasn't intuitive, no documentation existed, engineers were drowning in delivery + platform work. One put it directly: *"Distillery is currently not a platform I'm even remotely proud of."* distyl-scripts was the team's response — a place to store tribal knowledge. Sidekick surfaced that knowledge and made it self-service. Use this to answer "why did this need to exist?" not as an opener.
+**Format:** 5 slides · 5-min demo · 10-min Q&A
 
 ---
 
 ## Slide 1 — Title
 
-Named after Tower's bestselling phone from the 00s — Rohan proposed it in late May. Before that it was agent-chat in Toolkit. Keep it short.
+*Say this:*
 
-## Slide 2 — Context: Tower
+"I want to tell you about something we built called Sidekick. It started as a workaround. It became a product. And in four weeks it turned non-engineers into people who are shipping features and catching production bugs on their own."
 
-Tower is the agentic platform operating in production across chat and voice at T-Mobile. ~40 non-engineering stakeholders — care, consumer, product, conversation design — are responsible for the quality of every interaction but had no direct path to change the system. Everything went through a dev.
+*Pause. Move on.*
 
-**If they ask why non-engineers couldn't just use Distillery:** The routine editor required heavy hand-holding even for technical people. No documentation. That's not on the users.
+---
+
+## Slide 2 — The problem
+
+*Say this:*
+
+"Tower is the agentic platform running in production across chat and voice at T-Mobile. It's one of the largest production agentic deployments in the industry — every T-Mobile customer touches it.
+
+The team running it is about forty people — care, consumer, product, conversation design. They own the quality of every interaction. But they had no direct path to change anything. Every fix, every improvement, every tweak had to go through a developer.
+
+And here's the thing — even our own AI strategists were hitting friction. The Distillery platform had real usability problems. No documentation, no guidance, a routine editor that required heavy hand-holding. So they built their own scripts on highside just to get around it. That repo was called distyl-scripts. It became a place to store tribal knowledge — the sequences, the workarounds, the things you had to know to get anything done.
+
+When they realized the broader Tower team needed the same access, they built a frontend. That's Sidekick."
+
+---
 
 ## Slide 3 — What we built
 
-In January, AI strategists were hitting friction on Distillery and started building scripts on highside to work around it — `distyl-scripts`. It became a tribal knowledge store: the sequences and workarounds you had to know to get anything done. Austin and Eric moved it to Context Mesh in May. Those scripts became skills, built by strategists for themselves. When they realized non-technical Tower users — some who'd never used Claude — needed the same access, they built a frontend. That's Sidekick.
+*Say this:*
 
-Rachel and Eric got it deployed highside May 28. Bug bash same day.
+"Sidekick is a Claude session, running inside our Toolkit infrastructure, connected to Distillery, Weave, Jira, and Databricks. You describe what you want in plain language — it figures out the tool calls.
 
-**Land this:** Sam, a conversation designer, built a billing journey feature end-to-end with Sidekick. No engineers. Zero bugs. Live in 118.
+The skills — the repeatable workflows it knows how to run — came from the AI strategists who built distyl-scripts. They built them for themselves. They're tuned to the actual work, not a hypothetical version of it.
 
-## Slide 4 — Skills
+And then this happened: Sam — a conversation designer, someone who had never touched Distillery before — built a billing journey feature end-to-end using Sidekick. No engineers involved. Shipped with zero bugs. It's live in the 118 release right now.
 
-Skills came from the strategists, not from product design. They encode the tribal knowledge — which routine to check, which eval set matters, where a data issue looks different from a routine issue. That's why they're actually useful.
-
-## Slide 5 — Safe by design
-
-The hesitation you always hear: "I'm scared to break something." Three layers: branches (nothing touches main until it's ready), evals (regression testing before merge), approvals (can't merge your own changes). Sidekick can't bypass any of them.
-
-**Technical follow-up:** Proposals are a Distillery primitive — branch diff with an approval gate. Sidekick calls the same Fern-generated SDK endpoints engineers use directly.
-
-## Slide 6 — What's next
-
-Users want Sidekick embedded in Distillery — especially for routine editing. Designs in review now. Also: persistent sessions, agent-guild for Tower engineers, subagent support.
-
-## Slide 7 — Demo
-
-Hand off here. See `story-notes.md` demo section or run from Sidekick directly.
+That's the thing we set out to prove. And it happened."
 
 ---
 
-## Origin timeline (Q&A)
+## Slide 4 — Traction
 
-- **Jan:** distyl-scripts on highside — AI strategists working around Distillery friction
-- **May:** Austin + Eric move it to Context Mesh. Rohan names it Sidekick.
-- **May 28:** Rachel + Eric deploy highside. Bug bash same day.
-- **Early June:** Distyl Academy onsite. First real users (Tower interns). P0s found — user impersonation, pod restarts, skill exposure.
-- **June 17:** Sidekick Academy, ~40 non-engineering stakeholders. Went down that morning, back up in time. POs doing delivery work same day.
-- **Now:** Marshall and others enthusiastic. Embedded Sidekick, persistent sessions, agent-guild in flight.
+*Say this:*
+
+"Here's where we are four weeks in. Five hundred and ninety sessions, fifty-two unique users. Tower started at five sessions in week one and hit twenty-five in week four — they're now our largest cohort, ahead of our own team and the intern class.
+
+I want to be honest about the quality picture. Tower's success rate is forty-nine percent. Eighty-eight percent of their sessions hit environmental friction. But here's what that actually means — the friction is Distillery CLI failures and Weave timeouts. It's infrastructure reliability, not model quality. That's what's driving the roadmap."
 
 ---
 
-## Metrics (W22–W25, May 25–Jun 21)
+## Slide 5 — What's next
 
-**Headline numbers:** 590 sessions · 52 unique users · 17 Tower users · 55% overall success (LLM-reviewed)
+*Say this:*
 
-**Tower growth:** 5 → 14 → 24 → 25 sessions/week. Now the largest cohort. 15 proposals submitted in 4 weeks.
+"The biggest signal we're getting from users is that they want Sidekick embedded directly in Distillery — especially for routine editing, so they're not context-switching to a separate surface. Designs are in review now. We're also working on persistent sessions, agent-guild for the engineering side of Tower, and subagent support.
 
-**Honest picture:** Tower success rate is 49%, with 88% of sessions hitting environmental friction. That friction is mostly Distillery CLI/API failures and Weave 502s — infra reliability, not model quality. The hard workflows (rca, fix-issue, reproduce-issue) drive the most mistakes because they're also the most-used. That's where the reliability investment goes next.
+The trajectory is clear. This is getting deeper, not going away.
 
-**Retention:** Team 86%, Interns 69%, Tower W24 joiners 50%. Newer Tower cohorts stick less — the onboarding nudge work matters.
+Let me show you what it actually looks like."
 
-**If they ask how you measure success:** LLM reviewer (Claude Sonnet) reads transcripts and scores whether the user accomplished their goal. Directional, not ground truth.
+*Switch to Sidekick. Start the demo.*
 
-## Engineer Q&A
+---
 
-- **Built on?** — agent-chat from Toolkit. FastAPI + Claude via Anthropic SDK. agent-runner handles session lifecycle and SSE streaming. fe-distillery scans Context Mesh file stores (agents folder) to surface available agents. Sessions are sandboxed.
-- **How do connectors work?** — User-provided API keys. agent-runner's proxy manager intercepts and injects credentials per call. Nothing stored server-side.
-- **How does it call Distillery?** — Same Fern-generated SDKs engineers use. No custom layer.
-- **Does it change how Distillery works?** — No. Same refinement loop: observe → edit → test → propose → merge. Sidekick automates steps, doesn't bypass them.
-- **Is it a workaround for Distillery's UX problems?** — Partly, honestly. But it's also a different model for non-engineer access. Embedded Sidekick is where the two converge.
-- **Voice workflows?** — Not yet. Tower voice (611) is a separate runtime. Natural extension, not yet scoped.
-- **Deployed how?** — Kubernetes on Azure AKS (Stillhouse Basil), same as Distillery. Highside requires Tailscale.
-- **agent-guild?** — Separate product for Tower engineers. Sidekick is for non-engineers.
-- **Run locally?** — Yes via Toolkit. Need Tailscale for Distillery.
+## Demo script (5 minutes)
+
+**Setup before presenting:**
+- Sidekick open, API keys configured (Weave + Jira pre-entered)
+- Real defect ticket ID ready to paste
+- Know the routine name for that flow
+
+**Run this:**
+
+**(0:00–0:45)** Type: "Can you look at this defect and tell me what happened?" Paste the ticket ID. While it runs: "It's calling the Jira API under my credentials, pulling the ticket, reading the comments. I didn't configure a workflow — I just described what I wanted."
+
+**(0:45–1:30)** Type: "Double-check by looking at the Weave trace." While it runs: "Same Weave API you'd call manually. Sidekick is sequencing the tool calls — it's not doing anything you couldn't do, it's just doing it for you."
+
+**(1:30–3:00)** Type: "Go ahead and fix this in [routine name]." While it runs: "It's calling the same Fern-generated SDK endpoints engineers use directly. No custom layer between Sidekick and the platform."
+
+**(3:00–4:00)** Type: "Create a proposal for this change." Switch to Distillery to show the proposal — red/green diff, approval gate. "Sidekick can't merge its own changes. It created the proposal. A human has to approve it."
+
+**(4:00–5:00)** Stop. Say: "Sam did exactly this. Conversation designer. Never touched Distillery before Sidekick. Zero bugs. Live in production."
+
+**Fallback:** If Distillery CLI flakes (it happens — 88% of Tower sessions hit infra friction), stop after the RCA step and show the proposal from a pre-run session. Don't push through a broken demo.
+
+---
+
+## Q&A — what they'll ask
+
+**What's it built on?**
+agent-chat from Toolkit, renamed. FastAPI Python backend, React 19 frontend, Claude via Anthropic SDK. agent-runner handles session lifecycle and SSE streaming. fe-distillery scans Context Mesh file stores in the agents folder to surface available agents. Sessions are sandboxed.
+
+**How do the connectors work?**
+User-provided API keys entered in Sidekick's config panel. agent-runner has a proxy manager that intercepts and injects those credentials per call. Nothing stored server-side under a shared account.
+
+**How does it call Distillery?**
+Same Fern-generated type-safe SDKs engineers use directly. No custom API layer. Same surface, same contracts.
+
+**Does it change how Distillery works?**
+No. Same refinement loop: observe → edit on branch → test → propose → merge. Sidekick automates steps in that loop. It doesn't bypass the approval gate.
+
+**Is it a workaround for Distillery's UX problems?**
+Partly, honestly. The routine editor has real usability issues and there's been limited documentation. Sidekick abstracts that friction. But it's also a different model — non-engineers interacting directly with the system. Embedded Sidekick is where those two things converge.
+
+**How do skills work technically?**
+Prompt-based blueprints loaded into agent context. Not code — structured instructions that shape how the agent sequences tool calls. Built by AI strategists for themselves first, which is why they're actually useful.
+
+**What's the full skill catalog?**
+Building: edit a routine, create evals, ship a feature end-to-end.
+Fixing: RCA a defect, reproduce an issue, make the fix.
+Monitoring: pull production logs, query Databricks, generate output visuals.
+Onboarding: Distillery Coach explains any concept in plain language and routes to the right skill.
+
+**How do you prevent bad changes from going to production?**
+Branches (nothing touches main until ready), evals (regression testing required before merge), approvals (can't merge your own changes). All Distillery primitives — Sidekick didn't build its own safety layer.
+
+**Does it work for voice?**
+Not yet. Tower voice (611) is a separate runtime. Natural extension, not yet scoped.
+
+**What's agent-guild?**
+Separate product in progress for Tower engineers. Sidekick targets non-engineers; agent-guild is the dev-facing side.
+
+**Can I run it locally?**
+Yes via Toolkit. Standard local dev setup. Need Tailscale for Distillery.
+
+---
+
+## Origin (if it comes up)
+
+Jan: AI strategists build distyl-scripts on highside — working around Distillery friction.
+May: Austin and Eric move it to Context Mesh as it matures.
+Late May: Rohan names it Sidekick (Tower's 00s phone).
+May 28: Rachel and Eric deploy it highside. Bug bash same day.
+Early June: Distyl Academy onsite. First real users (Tower interns). P0 bugs found and fixed.
+June 17: Sidekick Academy — 40 non-engineering Tower stakeholders. Went down that morning, back up in time. POs doing delivery work same day.
+Now: Marshall and others enthusiastic. Embedded Sidekick, persistent sessions, agent-guild in flight.
