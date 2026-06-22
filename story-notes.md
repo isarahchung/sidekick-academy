@@ -18,7 +18,7 @@ Named after Tower's bestselling phone from the 00s — Rohan proposed it in late
 
 ## Slide 2 — Context: Tower
 
-Tower is T-Mobile's production AI customer service program. ~40 non-engineering stakeholders — care, consumer, product, conversation design — are responsible for the quality of every interaction but had no direct path to change the system. Everything went through a dev.
+Tower is the agentic platform operating in production across chat and voice at T-Mobile. ~40 non-engineering stakeholders — care, consumer, product, conversation design — are responsible for the quality of every interaction but had no direct path to change the system. Everything went through a dev.
 
 **If they ask why non-engineers couldn't just use Distillery:** The routine editor required heavy hand-holding even for technical people. No documentation. That's not on the users.
 
