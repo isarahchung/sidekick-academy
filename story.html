@@ -1281,6 +1281,53 @@ if (saved) document.getElementById('deckStage').innerHTML = saved;
 new SlidePresentation();
 
 
+/* === RIBBON ANIMATION ========================================= */
+(function() {
+    var cv = document.createElement('canvas');
+    cv.style.cssText = 'position:fixed;top:0;left:0;z-index:999999;pointer-events:none;';
+    document.body.appendChild(cv);
+
+    function runRibbons() {
+        cv.width  = window.innerWidth;
+        cv.height = window.innerHeight;
+        var ctx = cv.getContext('2d');
+        var W = cv.width, H = cv.height;
+        var startTime = null;
+        var totalDur = 650;
+        var bands = [
+            { y: 0.38,  h: 0.065, a: 1.0,  off: 0   },
+            { y: 0.455, h: 0.027, a: 0.65, off: 0.12 },
+            { y: 0.505, h: 0.012, a: 0.35, off: 0.22 },
+            { y: 0.535, h: 0.005, a: 0.18, off: 0.3  }
+        ];
+        function frame(ts) {
+            if (!startTime) startTime = ts;
+            var el = ts - startTime;
+            ctx.clearRect(0, 0, W, H);
+            bands.forEach(function(b) {
+                var t = (el - b.off * totalDur) / (totalDur * 0.55);
+                if (t <= 0 || t >= 1) return;
+                var ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+                ctx.globalAlpha = b.a;
+                ctx.fillStyle = '#E20074';
+                ctx.fillRect(-W + ease * W * 2.1, b.y * H, W, b.h * H);
+            });
+            if (el < totalDur + 100) requestAnimationFrame(frame);
+            else ctx.clearRect(0, 0, W, H);
+        }
+        requestAnimationFrame(frame);
+    }
+
+    function tryRun() {
+        var t = document.querySelector('.title-slide');
+        if (t && t.classList.contains('active')) runRibbons();
+    }
+
+    setTimeout(tryRun, 120);
+    document.addEventListener('keydown', function() { setTimeout(tryRun, 80); });
+    document.addEventListener('click', function() { setTimeout(tryRun, 80); });
+})();
+
 </script>
 </body>
 </html>
