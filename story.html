@@ -218,6 +218,8 @@ svg {
     justify-content: center;
     padding: 96px 120px;
     position: relative;
+    width: 1920px;
+    height: 1080px;
     overflow: hidden;
 }
 .title-slide .geo-circle {
@@ -962,6 +964,27 @@ svg {
 .ribbon-3 { height: 12px;  top: 50%; opacity: 0.35; }
 .ribbon-4 { height: 5px;   top: 53%; opacity: 0.2; }
 
+
+/* === RIBBON ANIMATION ========================================= */
+.title-ribbons {
+    position: absolute;
+    top: 0; left: 0;
+    width: 1920px; height: 1080px;
+    pointer-events: none;
+    z-index: 20;
+    overflow: hidden;
+}
+.ribbon {
+    position: absolute;
+    height: 72px;
+    width: 1920px;
+    background: #E20074;
+    left: -1920px;
+    top: 38%;
+}
+.ribbon-2 { height: 30px; top: 46%; opacity: 0.65; left: -1920px; }
+.ribbon-3 { height: 13px; top: 51%; opacity: 0.35; left: -1920px; }
+.ribbon-4 { height: 5px;  top: 54%; opacity: 0.2;  left: -1920px; }
     </style>
 </head>
 <body>
@@ -1297,59 +1320,6 @@ if (saved) document.getElementById('deckStage').innerHTML = saved;
 
 new SlidePresentation();
 
-/* === RIBBON JS ANIMATION ====================================== */
-(function() {
-    function runRibbons() {
-        const ribbons = document.querySelectorAll('.ribbon');
-        const dur = 220; // ms for each ribbon to cross
-        const stagger = 70;
-
-        ribbons.forEach((r, i) => {
-            const delay = i * stagger;
-            setTimeout(() => {
-                // Phase 1: expand from left
-                r.style.transition = `transform ${dur}ms cubic-bezier(0.4,0,0.6,1)`;
-                r.style.transform = 'scaleX(1)';
-                r.style.transformOrigin = 'left center';
-
-                // Phase 2: collapse to right
-                setTimeout(() => {
-                    r.style.transformOrigin = 'right center';
-                    r.style.transform = 'scaleX(0)';
-                }, dur + 20);
-
-                // Phase 3: reset
-                setTimeout(() => {
-                    r.style.transition = 'none';
-                    r.style.transformOrigin = 'left center';
-                }, dur * 2 + 60);
-            }, delay);
-        });
-    }
-
-    // Run on load
-    window.addEventListener('load', function() {
-        setTimeout(runRibbons, 100);
-    });
-
-    // Re-run whenever slide 1 becomes active (navigation)
-    const observer = new MutationObserver(function(mutations) {
-        mutations.forEach(function(m) {
-            if (m.target.classList.contains('title-slide') &&
-                m.target.classList.contains('active') &&
-                m.attributeName === 'class') {
-                setTimeout(runRibbons, 80);
-            }
-        });
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const titleSlide = document.querySelector('.title-slide');
-        if (titleSlide) {
-            observer.observe(titleSlide, { attributes: true });
-        }
-    });
-})();
 
 </script>
 </body>
