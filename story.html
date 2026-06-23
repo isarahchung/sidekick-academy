@@ -936,40 +936,40 @@ svg {
 .title-slide .rule.reveal,
 .title-slide .meta { opacity: 1; transform: none; transition: none; }
 
-/* === RIBBON / SPEED LINES ANIMATION (title slide) ============= */
+
+
+/* === RIBBON ANIMATION ========================================= */
 @keyframes ribbonFly {
-    0%   { transform: translateX(-110%); opacity: 1; }
-    100% { transform: translateX(110%); opacity: 1; }
+    from { transform: translateX(-120%); }
+    to   { transform: translateX(130%); }
 }
 .title-ribbons {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    overflow: hidden;
     z-index: 10;
+    overflow: hidden;
 }
 .ribbon {
     position: absolute;
     left: 0;
     width: 120%;
     background: #E20074;
-    border-radius: 0 4px 4px 0;
-    animation: ribbonFly 0.55s cubic-bezier(0.4, 0, 0.2, 1) both;
-    opacity: 0;
+    border-radius: 0 6px 6px 0;
+    animation: ribbonFly 0.45s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
-.ribbon-1 { height: 64px;  top: 38%;  animation-delay: 0.0s; opacity: 0.95; }
-.ribbon-2 { height: 28px;  top: 47%;  animation-delay: 0.08s; opacity: 0.7; }
-.ribbon-3 { height: 14px;  top: 52%;  animation-delay: 0.14s; opacity: 0.45; }
-.ribbon-4 { height: 6px;   top: 55%;  animation-delay: 0.19s; opacity: 0.25; }
+.ribbon-1 { height: 72px;  top: 37%;  animation-delay: 0.0s; }
+.ribbon-2 { height: 32px;  top: 47%;  animation-delay: 0.07s; opacity: 0.75; }
+.ribbon-3 { height: 16px;  top: 52%;  animation-delay: 0.13s; opacity: 0.45; }
+.ribbon-4 { height: 6px;   top: 55%;  animation-delay: 0.18s; opacity: 0.25; }
 
-/* Logo and rule animate in after ribbons clear */
 .title-slide img {
-    animation: slideInSpring 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-    animation-delay: 0.45s;
+    animation: slideInSpring 0.85s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    animation-delay: 0.5s;
 }
 .title-slide .rule {
     transform-origin: left center;
-    animation: drawRule 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation: drawRule 0.6s ease both;
     animation-delay: 1.1s;
 }
 .title-slide .meta {
@@ -978,7 +978,8 @@ svg {
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .ribbon { animation: none; opacity: 0; }
+    .ribbon, .title-slide img, .title-slide .rule, .title-slide .meta { animation: none; }
+    .title-slide img, .title-slide .rule, .title-slide .meta { opacity: 1; transform: none; }
 }
 
     </style>
