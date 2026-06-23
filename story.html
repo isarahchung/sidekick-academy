@@ -968,7 +968,7 @@ svg {
      ============================================================ -->
 <section class="slide agentic-slide" aria-label="Agentic Interface">
     <div class="left">
-        <div class="eyebrow reveal">Sidekick</div>
+        <div class="eyebrow reveal">What is Sidekick?</div>
         <h2 class="reveal">An <span style="color:#E20074;">agentic</span> interface for Tower.</h2>
         <ul class="feature-list">
             <li class="reveal">
@@ -1280,18 +1280,6 @@ if (saved) document.getElementById('deckStage').innerHTML = saved;
 
 new SlidePresentation();
 
-/* === RIBBON TEST =============================================== */
-(function() {
-    var cv = document.createElement('canvas');
-    cv.style.cssText = 'position:fixed;top:0;left:0;z-index:999999;pointer-events:none;';
-    cv.width = window.innerWidth || 1920;
-    cv.height = window.innerHeight || 1080;
-    document.body.appendChild(cv);
-    var ctx = cv.getContext('2d');
-    ctx.fillStyle = '#E20074';
-    ctx.fillRect(0, cv.height * 0.4, cv.width, 80);
-    setTimeout(function() { ctx.clearRect(0,0,cv.width,cv.height); }, 1200);
-})();
 
 </script>
 </body>
