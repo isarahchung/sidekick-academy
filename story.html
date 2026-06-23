@@ -255,7 +255,7 @@ svg {
     line-height: 0.88;
     letter-spacing: -0.04em;
     color: var(--black);
-    margin-bottom: 56px;
+    margin-bottom: 48px;
 }
 .title-slide .subtitle {
     font-family: var(--font-body);
@@ -877,25 +877,9 @@ svg {
     box-shadow: 0 0 0 1px rgba(17,17,17,0.1);
 }
 
-/* ================================================================
-   PROGRESS INDICATOR (outside stage)
-   ================================================================ */
-.deck-progress {
-    position: fixed;
-    bottom: 24px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 8px;
-    z-index: 1000;
-}
-.deck-progress .pip {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.25);
-    transition: background 0.3s, transform 0.3s;
-}
+
+
+
 .deck-progress .pip.active {
     background: #0052FF;
     transform: scale(1.4);
@@ -1162,8 +1146,6 @@ svg {
 </main>
 </div>
 
-<!-- Progress dots (outside stage) -->
-<nav class="deck-progress" id="deckProgress" aria-label="Slide progress"></nav>
 
 <!-- Inline edit affordance -->
 <div class="edit-hotzone" id="editHotzone"></div>
@@ -1176,10 +1158,8 @@ class SlidePresentation {
         this.slides = Array.from(document.querySelectorAll('.slide'));
         this.current = 0;
         this.stage = document.getElementById('deckStage');
-        this.progressEl = document.getElementById('deckProgress');
         this.isEditing = false;
 
-        this.buildProgress();
         this.setupScale();
         this.setupKeyboard();
         this.setupTouch();
@@ -1188,20 +1168,7 @@ class SlidePresentation {
         this.goTo(0);
     }
 
-    buildProgress() {
-        this.slides.forEach((_, i) => {
-            const pip = document.createElement('div');
-            pip.className = 'pip';
-            pip.addEventListener('click', () => this.goTo(i));
-            this.progressEl.appendChild(pip);
-        });
-    }
 
-    updateProgress() {
-        this.progressEl.querySelectorAll('.pip').forEach((pip, i) => {
-            pip.classList.toggle('active', i === this.current);
-        });
-    }
 
     setupScale() {
         const scale = () => {
@@ -1221,7 +1188,6 @@ class SlidePresentation {
         const slide = this.slides[this.current];
         slide.classList.add('active');
         requestAnimationFrame(() => slide.classList.add('visible'));
-        this.updateProgress();
         document.title = `Sidekick — ${this.current + 1}/${this.slides.length}`;
     }
 
