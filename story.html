@@ -1282,9 +1282,72 @@ const saved = localStorage.getItem('sidekick-deck-edits');
 if (saved) document.getElementById('deckStage').innerHTML = saved;
 
 new SlidePresentation();
+/* === RIBBON ANIMATION ========================================= */
+(function() {
+    var cv = document.createElement('canvas');
+    cv.width  = 1920;
+    cv.height = 1080;
+    cv.style.cssText = 'position:absolute;top:0;left:0;width:1920px;height:1080px;z-index:5;pointer-events:none;';
+    var stage = document.getElementById('deckStage');
+    if (stage) stage.appendChild(cv);
+    else document.body.appendChild(cv);
 
+    var ctx = cv.getContext('2d');
+    var W = 1920, H = 1080;
 
+    var bands = [
+        { y: 410, h: 70,  a: 1.0,  off: 0    },
+        { y: 492, h: 29,  a: 0.65, off: 0.12  },
+        { y: 545, h: 13,  a: 0.35, off: 0.22  },
+        { y: 578, h: 6,   a: 0.18, off: 0.30  }
+    ];
 
+    function runRibbons() {
+        var logo = document.getElementById('sidekick-logo');
+        if (logo) logo.style.clipPath = 'inset(0 100% 0 0)';
+        var t0 = null;
+        var dur = 1200;
+
+        function frame(ts) {
+            if (!t0) t0 = ts;
+            var el = ts - t0;
+            ctx.clearRect(0, 0, W, H);
+
+            var leadT    = Math.min(Math.max(el / (dur * 0.55), 0), 1);
+            var leadEase = leadT < 0.5 ? 2*leadT*leadT : -1+(4-2*leadT)*leadT;
+            var reveal   = Math.min(leadEase * 2.1, 1);
+            if (logo) {
+                var hidden = Math.max(0, (1 - reveal) * 100);
+                logo.style.clipPath = 'inset(0 ' + hidden.toFixed(1) + '% 0 0)';
+            }
+
+            bands.forEach(function(b) {
+                var t = Math.min(Math.max((el - b.off * dur) / (dur * 0.55), 0), 1);
+                if (t <= 0 || t >= 1) return;
+                var ease = t < 0.5 ? 2*t*t : -1+(4-2*t)*t;
+                ctx.globalAlpha = b.a;
+                ctx.fillStyle = '#E20074';
+                ctx.fillRect(-W + ease * W * 2.1, b.y, W, b.h);
+            });
+
+            if (el < dur + 150) requestAnimationFrame(frame);
+            else {
+                ctx.clearRect(0, 0, W, H);
+                if (logo) logo.style.clipPath = 'none';
+            }
+        }
+        requestAnimationFrame(frame);
+    }
+
+    function tryRun() {
+        var t = document.querySelector('.title-slide');
+        if (t && t.classList.contains('active')) runRibbons();
+    }
+
+    setTimeout(tryRun, 120);
+    document.addEventListener('keydown', function() { setTimeout(tryRun, 80); });
+    document.addEventListener('click',   function() { setTimeout(tryRun, 80); });
+})();
 
 </script>
 </body>
