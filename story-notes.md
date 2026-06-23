@@ -1,28 +1,29 @@
 # Story — Speaker Notes
 
 **Deck:** [story.html](./story.html)
-**Audience:** Distyl engineers who don't know Tower
-**Format:** 5 slides · 5-min demo · 10-min Q&A
 
 ---
 
 ## Slide 1 — Title
 
-*Say this:*
+demonstrate sidekick - our deployed agent at Tower
 
-"I want to tell you about something we built called Sidekick. It started as a workaround. It became a product. And it proved something we've been trying to prove for a while — that the people who know what good looks like can now directly change what's in production."
-
-*Pause. Move on.*
-
----
+## Slide 2 — Overview
+largest agentic use case at Distyl today..
+- kick it off with natural language requests
+- built on top of context mesh for nontechnical sme's who
 
 ## Slide 3 — The problem
 
 *Say this:*
 
-"Tower's IntentCX program enables people to build AI systems that serve over 200,000 interactions every day. That's the scale. Care teams, conversation designers, product owners, dev leads — they all have a stake in what those interactions look like.
+"Tower's IntentCX program enables people to build AI systems that serve over 200,000 interactions every day, using our Distillery Platform
 
-Unfortunately, Distillery — our platform to build and evaluate those systems — was too difficult for most of them to use directly. The routine editor required real hand-holding. Many of these folks had never used an AI tool before, some hadn't used ChatGPT. So the people who actually knew what a good conversation looked like — the ones with five years of customer context in their heads — had one path to improve the system: file a ticket and wait.
+However for our teams across tower - Care , conversation designers, product owners - non-technical SME who are not AI -native...
+
+
+Unfortunately, Distillery — our platform to build and evaluate those systems — was too difficult for most of them to use directly. The routine editor required hand-holding. 
+    Many of these folks had never used an AI tool before, some hadn't used ChatGPT. So the people who actually knew what a good conversation looked like — the ones with five years of customer context in their heads — had one path to improve the system: file a ticket and wait.
 
 And it wasn't just them. Our own AI strategists hit the same wall. So they built distyl-scripts — a repo on highside where they stored the sequences and tribal knowledge that the platform didn't surface. That's the thing that eventually became Sidekick's skills."
 
@@ -30,13 +31,13 @@ And it wasn't just them. Our own AI strategists hit the same wall. So they built
 
 ## Slides 4–5 — What we built + Skills
 
-*Say this (slides 4 and 5, run them together):*
 
 "Sidekick is a Claude session connected to Distillery, Weave, Jira, and Databricks. You describe what you want in plain language — it handles the tool calls.
 
-The skills are the key part. These aren't hypothetical workflows someone designed from a whiteboard. They were built by our AI strategists from real work — the actual sequences they were running every day, stored in distyl-scripts and then formalized into Context Mesh. They're battle-tested. They encode the tribal knowledge of the people who knew the platform best.
+The skills are the key part, whcich are stored in context mesh. Battle tested by our AI strategists from real workflows — the actual steps they were doing to build features or edit routines
+    stored in distyl-scripts and then published and shared. 
 
-And then Sam — a conversation designer, someone who had never touched Distillery before — used those skills to build a billing journey feature end-to-end. No engineers. Zero bugs. Live in the 118 release. That's what it looks like when domain expertise finally has a direct path into production."
+And then Sam — a conversation designer, with 5 years of experience - someone who had never touched Distillery before — used those skills to build a billing journey feature end-to-end. No engineers.  That's what it looks like when domain expertise finally has a direct path into production."
 
 ---
 
@@ -44,9 +45,10 @@ And then Sam — a conversation designer, someone who had never touched Distille
 
 *Say this:*
 
-"Here's where we are four weeks in. Five hundred and ninety sessions, fifty-two unique users. Tower started at five sessions in week one and hit twenty-five in week four — they're now our largest cohort, ahead of our own team and the intern class.
+"Here's where we are four weeks in. we've had 2 onboarding sessions so far 
+    over 800 sessions with fifty-two unique users. 
+    Tower started at five sessions in week one and hit twenty-five in week four — they're now our largest cohort, ahead of our own team and the intern class.
 
-I want to be honest about the quality picture. Tower's success rate is forty-nine percent. Eighty-eight percent of their sessions hit environmental friction. But here's what that actually means — the friction is Distillery CLI failures and Weave timeouts. It's infrastructure reliability, not model quality. That's what's driving the roadmap."
 
 ---
 
@@ -58,7 +60,6 @@ I want to be honest about the quality picture. Tower's success rate is forty-nin
 
 The trajectory is clear. This is getting deeper, not going away.
 
-Let me show you what it actually looks like."
 
 *Switch to Sidekick. Start the demo.*
 
