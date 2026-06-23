@@ -346,7 +346,13 @@ svg {
     height: auto;
     object-fit: contain;
     border-radius: 8px;
-    box-shadow: 0 24px 64px rgba(17,17,17,0.18), 0 4px 16px rgba(17,17,17,0.08);
+    filter: grayscale(100%);
+    box-shadow: 0 20px 56px rgba(17,17,17,0.15);
+    transition: filter 0.4s ease, box-shadow 0.4s ease;
+}
+.agentic-slide .right img:hover {
+    filter: grayscale(0%);
+    box-shadow: 0 20px 56px rgba(226,0,116,0.35), 0 4px 16px rgba(226,0,116,0.2);
 }
 .agentic-slide .slide-num {
     position: absolute;
