@@ -1176,6 +1176,43 @@ svg {
     </div>
   </section>
 
+  <!-- Appendix A2: Architecture -->
+  <section class="slide" aria-label="A2 Architecture">
+    <div style="background:var(--white);width:1920px;height:1080px;padding:96px 120px;display:flex;flex-direction:column;justify-content:center;position:relative;">
+      <div class="eyebrow reveal">Appendix</div>
+      <h2 class="reveal" style="font-family:var(--font-display);font-size:72px;line-height:0.95;letter-spacing:-0.03em;color:var(--black);margin-bottom:64px;">What's architecturally interesting.</h2>
+
+      <div class="reveal" style="display:grid;grid-template-columns:1fr 1fr;gap:40px;">
+
+        <div style="padding:40px;border:1px solid var(--gray);border-radius:12px;">
+          <div style="font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E20074;margin-bottom:12px;">01</div>
+          <div style="font-family:var(--font-display);font-size:28px;letter-spacing:-0.02em;color:var(--black);margin-bottom:12px;">No shared credentials</div>
+          <div style="font-family:var(--font-body);font-size:18px;color:var(--muted);line-height:1.5;">Your keys, your account. mitmproxy injects per-PID — enforced by the kernel, not application logic. Nothing stored server-side.</div>
+        </div>
+
+        <div style="padding:40px;border:1px solid var(--gray);border-radius:12px;">
+          <div style="font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E20074;margin-bottom:12px;">02</div>
+          <div style="font-family:var(--font-display);font-size:28px;letter-spacing:-0.02em;color:var(--black);margin-bottom:12px;">Skills are just a git repo</div>
+          <div style="font-family:var(--font-body);font-size:18px;color:var(--muted);line-height:1.5;">Markdown files in Context Mesh. Versioning, branching, diffs, rollback — for free. The same review process that guards code guards skills.</div>
+        </div>
+
+        <div style="padding:40px;border:1px solid var(--gray);border-radius:12px;">
+          <div style="font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E20074;margin-bottom:12px;">03</div>
+          <div style="font-family:var(--font-display);font-size:28px;letter-spacing:-0.02em;color:var(--black);margin-bottom:12px;">Model is swappable</div>
+          <div style="font-family:var(--font-body);font-size:18px;color:var(--muted);line-height:1.5;">agent-runner abstracts the runtime — Claude SDK or OpenCode. Skills, credential proxy, sandbox: none of it is coupled to Claude.</div>
+        </div>
+
+        <div style="padding:40px;border:1px solid var(--gray);border-radius:12px;">
+          <div style="font-family:var(--font-body);font-size:13px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E20074;margin-bottom:12px;">04</div>
+          <div style="font-family:var(--font-display);font-size:28px;letter-spacing:-0.02em;color:var(--black);margin-bottom:12px;">Ephemeral sandbox → durable output</div>
+          <div style="font-family:var(--font-body);font-size:18px;color:var(--muted);line-height:1.5;">Session is disposable. The proposal it creates lands in Distillery with an approval gate. Mistakes are catchable before they reach main.</div>
+        </div>
+
+      </div>
+      <span class="slide-num">A2</span>
+    </div>
+  </section>
+
 </main>
 </div>
 
